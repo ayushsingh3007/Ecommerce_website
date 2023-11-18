@@ -22,6 +22,7 @@ export const Routing = () => {
     <div className='login-cart'>
         <button>Login</button>
         <img src={cart_icon} alt='not-found'/>
+        <div className='nev-cart-count'>0</div>
     </div>
 
     </div>

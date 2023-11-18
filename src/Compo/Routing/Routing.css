@@ -48,4 +48,40 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+}
+.login-cart button{
+    width: 150px;
+    height: 58px;
+    outline: none;
+    border: 1px solid black;
+    /* border: 75px; */
+    color: #515151;
+    font-size: 20px;
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+    border-radius: 75px;
+
+}
+.login-cart button:active{
+     background:gray;
+     color: black;
+}
+.login-cart img{
+    width: 50px;
+    height: 30px;
+}
+.nev-cart-count{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -35px;
+    margin-left: -30px;
+    border-radius: 11px;
+    font-size: 14px;
+    color: white;
+    background: red;
 }

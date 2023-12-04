@@ -45,7 +45,7 @@ const Nav = ({search, setSearch, searchproduct}) => {
               <FiLogIn />
             </div>
             <div className='btn'>
-              <button onClick={() => loginWithRedirect()}>Login</button>
+             <Link to="/singup/:id"  i> <button onClick={() => loginWithRedirect()}>Login</button></Link>
             </div>
           </div>
           }

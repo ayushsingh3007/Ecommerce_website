@@ -1,7 +1,9 @@
 // Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom"
 import "../comp/Register.css"
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -32,9 +34,9 @@ const Login = () => {
         <div className='form-container'>
         
         <div>
-        <h1 style={{textAlign:"center"}}>Login</h1>
+        <h1 style={{textAlign:"center",fontFamily:"cursive"}}>Login</h1>
         <label>
-          Email:
+         <h3> Email:</h3>
           <input type="email" name="email" onChange={handleChange} required />
         </label>
         </div>
@@ -46,6 +48,7 @@ const Login = () => {
         </div>
         <div>
         <button type="submit">Login</button>
+        <Link to="/sinup" className='newuser-link'><p className='newuser-para'>New user? Register Now</p></Link>
         </div>
         </div>
       </form>

@@ -1,15 +1,22 @@
 /* Register.css (or your custom stylesheet) */
-.main-container-login{
+*{
+  margin: 0;
+  padding: 0;
+
+}
+.main-container-login {
   width: 100vw;
   height: 80vh;
   background-image: url("https://t3.ftcdn.net/jpg/03/70/92/84/360_F_370928450_R6g8c0j5cey86PUXE32W7KMiqIUe1fOI.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .form-container {
   max-width: 300px;
-  margin: auto; /* Center the form horizontally */
   padding: 20px;
   border: 3px solid black;
   display: flex;
@@ -21,10 +28,13 @@
 
 h1 {
   text-align: center;
+  color: orangered;
 }
 
 label {
   width: 100%;
+  color:yellow;
+  text-align: center;
 }
 
 input {
@@ -47,4 +57,9 @@ button {
 button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.newuser-link{
+  color:red;
+
 }

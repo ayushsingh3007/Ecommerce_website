@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react"
 import {Link} from 'react-router-dom';
 import './nav.css'
 const Nav = ({search, setSearch, searchproduct}) => {
-  const { loginWithRedirect, logout, user, isAuthenticated} = useAuth0();
+  const { logout, user, isAuthenticated} = useAuth0();
   return (
     <>
     <div className='header'>
@@ -22,6 +22,8 @@ const Nav = ({search, setSearch, searchproduct}) => {
         <div className='mid_header'>
           <div className='logo'>
             <img src='image/logo.webp' alt='logo'></img>
+
+
           </div>
           <div className='search_box'>
             <input type='text' value={search} placeholder='searh' onChange={(e) => setSearch(e.target.value)}></input>
@@ -45,7 +47,10 @@ const Nav = ({search, setSearch, searchproduct}) => {
               <FiLogIn />
             </div>
             <div className='btn'>
-             <Link to="/singup/:id"  i> <button onClick={() => loginWithRedirect()}>Login</button></Link>
+            
+  <button ><Link to="/signup">Login</Link></button>
+
+
             </div>
           </div>
           }

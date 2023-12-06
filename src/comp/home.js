@@ -30,7 +30,7 @@ const Home = ({addtocart}) => {
   useEffect(() => 
   {
     productcategory()
-  })
+  },[])
   const productcategory = () => 
   {
     // New Product

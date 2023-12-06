@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import "../comp/Register.css"
+import './Register.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -28,39 +28,37 @@ const Register = () => {
       console.error('Registration failed:', error.response ? error.response.data : error.message);
       // Handle registration failure (show error message, etc.)
     }
-  }
+  };
+
   return (
-    <div>
+    <div className="main-container-register">
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
         <label>
           First Name:
           <input type="text" name="firstname" onChange={handleChange} required />
         </label>
-        <br />
         <label>
           Last Name:
           <input type="text" name="lastname" onChange={handleChange} required />
         </label>
-        <br />
         <label>
           Email:
           <input type="email" name="email" onChange={handleChange} required />
         </label>
-        <br />
         <label>
           Password:
           <input type="password" name="password" onChange={handleChange} required />
         </label>
-        <br />
         <label>
           Phone Number:
           <input type="text" name="number" onChange={handleChange} required />
         </label>
-        <br />
         <button type="submit">Register</button>
       </form>
-      <Link to="/login">Already have a account?</Link>
+      <div className="link-container">
+        <Link to="/login" className="newuser-link">Already have an account?</Link>
+      </div>
     </div>
   );
 };

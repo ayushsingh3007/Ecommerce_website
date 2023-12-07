@@ -11,7 +11,7 @@ const Shop = ({shop, Filter, allcatefilter, addtocart}) => {
     {
         const detaildata = ([{product}])
         const productdetail = detaildata[0]['product']
-        // console.log(productdetail)
+        
         setDetail(productdetail)
         setShowDetail(true)
     }

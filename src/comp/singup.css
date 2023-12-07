@@ -8,7 +8,7 @@
   .main-container-register {
     width: 100vw;
     height: 80vh;
-    background-image: url("https://t3.ftcdn.net/jpg/03/70/92/84/360_F_370928450_R6g8c0j5cey86PUXE32W7KMiqIUe1fOI.jpg");
+    background-image: url("https://img.freepik.com/premium-photo/top-view-worktable-with-accessories_254791-58.jpg?w=826");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -22,13 +22,17 @@
     max-width: 300px;
     padding: 20px;
     border: 3px solid black;
+    margin:  auto; /* Center horizontally */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    position: absolute;
-    transform: translate(-50%,50%);}
+    position: relative;
+   bottom:0;
+    transform: translateY(-50%,50%);
+}
+
   
   
   h1 {
@@ -38,7 +42,7 @@
   
   label {
     width: 100%;
-    color: yellow;
+    color:rgb(53, 48, 48);
     text-align: center;
   }
   
@@ -65,7 +69,7 @@
   }
   
   .link-container {
-    margin-top: 10px;
+    margin-top: 20px;
   }
   
   .newuser-link {

@@ -6,6 +6,7 @@ import Cart from './cart';
 import Contact from './contact';
 import Login from './login';
 import Register from './singup';
+import PaymentSection from './payment';
 
 const Rout = ({shop, Filter, allcatefilter, addtocart, cart, setCart}) => {
   return (
@@ -15,6 +16,7 @@ const Rout = ({shop, Filter, allcatefilter, addtocart, cart, setCart}) => {
         <Route path='/cart' element={<Cart cart={cart} setCart ={setCart}/>} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Register/>}/>
+        <Route path="/payment" element={<PaymentSection/>}/>
         <Route path='shop' element={<Shop shop={shop} Filter={Filter} allcatefilter={allcatefilter} addtocart={addtocart}/>} />
         <Route path='/contact' element={<Contact />} />
 
@@ -24,4 +26,4 @@ const Rout = ({shop, Filter, allcatefilter, addtocart, cart, setCart}) => {
   )
 }
 
-export default Rout
+export default Rout;

@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './Register.css';
+import './singup.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +15,7 @@ const Register = () => {
     password: '',
     number: '',
   });
-
+    const Navigate=useNavigate()
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,8 +27,12 @@ const Register = () => {
       const response = await axios.post('http://localhost:5000/api/user/register', formData);
       console.log('User registered:', response.data);
       // Optionally, redirect to a different page after successful registration
+         Navigate("/login");
+         toast.success('Regitered successful');
     } catch (error) {
-      console.error('Registration failed:', error.response ? error.response.data : error.message);
+      console.log('Registration failed');
+      toast.success('Opps👀data not match');
+      Navigate(-1)
       // Handle registration failure (show error message, etc.)
     }
   };

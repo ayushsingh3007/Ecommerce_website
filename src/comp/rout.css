@@ -1,0 +1,20 @@
+/* Add your existing styles here */
+
+.mobile-menu {
+    display: none;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .nav-container {
+      display: none;
+    }
+  
+    .nav-container.mobile-menu-open {
+      display: block;
+    }
+  
+    .mobile-menu {
+      display: block;
+    }
+  }
+  

@@ -1,9 +1,8 @@
-/* Register.css (or your custom stylesheet) */
-*{
+* {
   margin: 0;
   padding: 0;
-
 }
+
 .main-container-login {
   width: 100vw;
   height: 80vh;
@@ -24,19 +23,26 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin: auto;
 }
 
-h1 {
+h3 {
   text-align: center;
-  color: orangered;
+  color: dark black; 
+  padding-top: 1px;
+}
+h3 hr {
+  border-bottom: 1px solid #ccc; /* Light gray border */
 }
 
 label {
   width: 100%;
-  color:yellow;
+  color: #ffcc00; /* Yellow color */
   text-align: center;
 }
-
+label:h3{
+  color: dark rgb(202, 102, 102);
+}
 input {
   width: 100%;
   padding: 10px;
@@ -59,7 +65,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.newuser-link{
-  color:red;
-
+.newuser-link {
+  color: #ff0000; /* Red color */
 }
+

@@ -1,27 +1,22 @@
-import React, { useState } from 'react'
-import './shop.css'
-import { AiFillHeart, AiFillEye, AiOutlineClose} from 'react-icons/ai';
-const Shop = ({shop, Filter, allcatefilter, addtocart}) => {
-    // Toggle Product Detail
-    const [showDetail, setShowDetail] = useState(false)
-    // Detail Page Data
-    const [detail, setDetail] = useState([])
-    //Showing Detail Box
-    const detailpage = (product) => 
-    {
-        const detaildata = ([{product}])
-        const productdetail = detaildata[0]['product']
-        
-        setDetail(productdetail)
-        setShowDetail(true)
-    }
-    const closedetail = () => 
-    {
-        setShowDetail(false)
-    }
+import React, { useState } from 'react';
+import { AiFillHeart, AiFillEye, AiOutlineClose } from 'react-icons/ai';
+import "../comp/shop.css"
+const Shop = ({ shop, Filter, allcatefilter, addtocart }) => {
+  const [showDetail, setShowDetail] = useState(false);
+  const [detail, setDetail] = useState([]);
+
+  const detailpage = (product) => {
+    setDetail(product);
+    setShowDetail(true);
+  };
+
+  const closedetail = () => {
+    setShowDetail(false);
+  };
+
   return (
     <>
-    {
+      {
         showDetail ? 
         <>
         <div className='product_detail'>
@@ -108,7 +103,7 @@ const Shop = ({shop, Filter, allcatefilter, addtocart}) => {
         </div>
     </div>
     </>
-  )
-}
+  );
+};
 
-export default Shop
+export default Shop;

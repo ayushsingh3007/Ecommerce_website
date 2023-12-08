@@ -1,21 +1,26 @@
 // Nav.js
-import React, { useState } from 'react';
+import React from 'react';
 import { MdLocalShipping } from 'react-icons/md';
 import { AiOutlineSearch } from 'react-icons/ai';
+import {AiOutlineMenu } from 'react-icons/ai'
 import { FiLogIn } from 'react-icons/fi';
 import { CiLogout, CiUser } from 'react-icons/ci';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import './nav.css';
 
 const Nav = ({ search, setSearch, searchproduct }) => {
   const { logout, user, isAuthenticated } = useAuth0();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
   return (
     <>
       <div className='header'>
@@ -54,11 +59,6 @@ const Nav = ({ search, setSearch, searchproduct }) => {
               </div>
             </div>
           }
-          <div className='menu-toggle' onClick={toggleMobileMenu}>
-            <div className={`bar ${isMobileMenuOpen ? 'open' : ''}`}></div>
-            <div className={`bar ${isMobileMenuOpen ? 'open' : ''}`}></div>
-            <div className={`bar ${isMobileMenuOpen ? 'open' : ''}`}></div>
-          </div>
         </div>
         <div className='last_header'>
           <div className='user_profile'>
@@ -84,29 +84,23 @@ const Nav = ({ search, setSearch, searchproduct }) => {
             }
           </div>
           <div className='nav'>
-            <ul>
-              <li><Link to='/' className='link'>Home</Link></li>
-              <li><Link to='/shop' className='link'>Shop</Link></li>
-              <li><Link to='/cart' className='link'>Cart</Link></li>
-              <li><Link to='/about' className='link'>About</Link></li>
-              <li><Link to='/contact' className='link'>Contact</Link></li>
+            <ul> 
+              <div className="toggle-button" onClick={toggleMenu}>
+          <AiOutlineMenu />
+        </div>
+        <div className={`menu-links ${isOpen ? 'open' : ''}`}>
+              <li><Link to='/' className='link' onClick={closeMenu}>Home</Link></li>
+              <li><Link to='/shop' className='link' onClick={closeMenu}>Shop</Link></li>
+              <li><Link to='/cart' className='link' onClick={closeMenu}>Cart</Link></li>
+              <li><Link to='/about' className='link' onClick={closeMenu}>About</Link></li>
+              <li><Link to='/contact' className='link' onClick={closeMenu}>Contact</Link></li>
+                </div>
             </ul>
           </div>
           <div className='offer'>
             <p>flat 10% over all iPhone</p>
           </div>
         </div>
-        {isMobileMenuOpen && (
-          <div className='mobile-menu'>
-            <ul>
-              <li><Link to='/' className='link' onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-              <li><Link to='/shop' className='link' onClick={() => setIsMobileMenuOpen(false)}>Shop</Link></li>
-              <li><Link to='/cart' className='link' onClick={() => setIsMobileMenuOpen(false)}>Cart</Link></li>
-              <li><Link to='/about' className='link' onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
-              <li><Link to='/contact' className='link' onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
-            </ul>
-          </div>
-        )}
       </div>
     </>
   );

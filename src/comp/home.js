@@ -1,64 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import './home.css'
-import '../comp/homeresponsive.css'
-import { Link } from 'react-router-dom'
-import Homeproduct from './home_product'
-import { AiFillEye, AiFillHeart, AiOutlineShoppingCart} from "react-icons/ai";
-import {BiLogoFacebook, BiLogoTwitter, BiLogoInstagram, BiLogoYoutube} from "react-icons/bi";
-const Home = ({addtocart}) => {
-  // Product category
-  const [newProduct, setNewProduct] = useState([])
-  const [featuredProduct, setFeaturdProduct] = useState([])
-  const [topProduct, setTopProduct] = useState([])
-  //Tranding Product
-  const [trendingProduct, setTrendingProduct] = useState(Homeproduct)
-  // Filter of tranding product
-  const filtercate = (x) => 
-  {
-    const filterproduct = Homeproduct.filter((curElm) => 
-    {
-      return curElm.type === x
-    })
-    setTrendingProduct(filterproduct)
-  }
-  //All Trending Product
-  const allTrendingProduct = () =>
-  {
-    setTrendingProduct(Homeproduct)
-  }
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import { AiFillEye, AiFillHeart, AiOutlineShoppingCart } from 'react-icons/ai';
+import { BiLogoFacebook, BiLogoTwitter, BiLogoInstagram, BiLogoYoutube } from 'react-icons/bi';
+import '../comp/home.css';
 
-  //Product Type
-  useEffect(() => 
-  {
-    productcategory()
-  },[])
-  const productcategory = () => 
-  {
-    // New Product
-    const newcategory = Homeproduct.filter((x) => 
-    {
-      return x.type === 'new'
-    })
-    setNewProduct(newcategory)
+const Home = ({ addtocart }) => {
+  const [newProduct, setNewProduct] = useState([]);
+  const [featuredProduct, setFeaturdProduct] = useState([]);
+  const [topProduct, setTopProduct] = useState([]);
+  const [data, setData] = useState([]);
+  const [trendingProduct, setTrendingProduct] = useState([]);
 
-    // Featured Product
-    const featuredcategory = Homeproduct.filter((x) => 
-    {
-      return x.type === 'featured'
-    })
-    setFeaturdProduct(featuredcategory)
+  const productcategory = useCallback(() => {
+    const newcategory = data.filter((x) => x.type === 'new');
+    setNewProduct(newcategory);
 
-    // Top Product
-    const topcategory = Homeproduct.filter((x) => 
-    {
-      return x.type === 'top'
-    })
-    setTopProduct(topcategory)
-  }
+    const featuredcategory = data.filter((x) => x.type === 'featured');
+    setFeaturdProduct(featuredcategory);
+
+    const topcategory = data.filter((x) => x.type === 'top');
+    setTopProduct(topcategory);
+
+    // Initialize trendingProduct with the original data
+    setTrendingProduct(data);
+  }, [data]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/user/store')
+      .then((response) => response.json())
+      .then((fetchedData) => {
+        setData(fetchedData);
+        productcategory();
+      })
+      .catch((error) => console.error('Error fetching shop data:', error));
+  }, [productcategory]);
+
+  const filtercate = (x) => {
+    const filterproduct = data.filter((curElm) => {
+      return curElm.type === x;
+    });
+    setTrendingProduct(filterproduct);
+  };
+
+  const allTrendingProduct = () => {
+    setTrendingProduct(data);
+  };
+
+
   return (
     <>
-    <div className='home'>
-        <div className='top_banner'>
+      
+      <div className='home'>
+      <div className='top_banner'>
             <div className='contant'>
                 <h3>silver aluminum</h3>
                 <h2>Apple Watch</h2>
@@ -109,7 +102,7 @@ const Home = ({addtocart}) => {
                     })
                   }
                 </div>
-                <button>Show More</button>
+                <button id='show-more'>Show More</button>
               </div>
             </div>
             <div className='right_box'>
@@ -266,9 +259,9 @@ const Home = ({addtocart}) => {
             </div>
           </div>
         </div>
-    </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default Home;

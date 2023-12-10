@@ -32,15 +32,15 @@ const Register = () => {
     } catch (error) {
       console.log('Registration failed');
       toast.success('Opps👀data not match');
-      Navigate(-1)
-      // Handle registration failure (show error message, etc.)
+    
+      
     }
   };
 
   return (
     <div className="main-container-register">
       <h1>Register</h1>
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit} autoComplete='off'>
         <label>
           First Name:
           <input type="text" name="firstname" onChange={handleChange} required />

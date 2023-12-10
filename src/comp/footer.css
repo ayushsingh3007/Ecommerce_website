@@ -123,62 +123,62 @@
 
 
 @media screen and (max-width:450px){
-    *
-{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
-}
-.footer
-{
-    width: 100vw;
-    padding: 30px 30px;
-    background: #f6f6f6;
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+    }
 
-}
-.footer .container
-{
-    display: flex;
-    margin: auto;
-    max-width: 100%;
-}
-.footer .container .left-box
-{
-    width: 50%;
-    padding: 15px 0px;
-    border-right: 2px solid #b8b7b7;
-}
-.footer .container .left-box .box
-{
-    display: flex;
-    align-items: flex-start;
+    .footer {
+        width: 100vw;
+        padding: 30px 20px; /* Adjusted padding for better spacing */
+        background: #f6f6f6;
+    }
 
-    padding: 5px 0px;
-    margin-top: 15px;
-}
-.footer .container .left-box .box .icon_box
-{
-    font-size: 11px;
-    color: #cd1e76;
-}
-.footer .container .left-box .box .detail
-{
-    margin-left: 10px;
-}
-.footer .container .left-box .box .detail h3
-{
-    text-transform: uppercase;
-    font-size: 16px;
-    color: #cd1e76;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-.footer .container .left-box .box .detail p
-{
-    font-size: 11px;
-    color: #232323;
-}
+    .footer .container {
+        display: flex;
+        flex-wrap: wrap; /* Allow flex items to wrap to the next line */
+        justify-content: space-around; /* Improved spacing between items */
+        margin: auto;
+        max-width: 100%;
+    }
+
+    .footer .container .left-box {
+        width: 100%; /* Adjusted width for better mobile layout */
+        padding: 15px 0px;
+        border-bottom: 2px solid #b8b7b7; /* Changed to bottom border for separation */
+    }
+
+    .footer .container .left-box .box {
+        display: flex;
+        align-items: center; /* Center items vertically */
+        padding: 10px 0px;
+        margin-top: 15px;
+    }
+
+    .footer .container .left-box .box .icon_box {
+        font-size: 18px; /* Increased font size for better visibility */
+        color: #cd1e76;
+    }
+
+    .footer .container .left-box .box .detail {
+        margin-left: 10px;
+    }
+
+    .footer .container .left-box .box .detail h3 {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #cd1e76;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .footer .container .left-box .box .detail p {
+        font-size: 12px; /* Increased font size for better readability */
+        color: #232323;
+    }
+
 .footer .container .right_box
 {
     padding: 10px 25px;

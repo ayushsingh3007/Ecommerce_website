@@ -79,7 +79,7 @@ const Home = ({ addtocart }) => {
                     {
                       return(
                         <>
-                        <div className='box'>
+                        <div className='box'  key={curElm.id} >
                           <div className='img_box'>
                             <img src={curElm.image} alt=''></img>
                             <div className='icon'>
@@ -182,7 +182,7 @@ const Home = ({ addtocart }) => {
                 {
                   return(
                     <>
-                    <div className='productbox'>
+                    <div className='productbox'  key={curElm.id} >
                       <div className='img-box'>
                         <img src={curElm.image} alt=''></img>
                       </div>
@@ -210,7 +210,7 @@ const Home = ({ addtocart }) => {
                 {
                   return(
                     <>
-                    <div className='productbox'>
+                    <div className='productbox'  key={curElm.id} >
                       <div className='img-box'>
                         <img src={curElm.image} alt=''></img>
                       </div>
@@ -238,7 +238,7 @@ const Home = ({ addtocart }) => {
                 {
                   return(
                     <>
-                    <div className='productbox'>
+                    <div className='productbox'  key={curElm.id} >
                       <div className='img-box'>
                         <img src={curElm.image} alt=''></img>
                       </div>

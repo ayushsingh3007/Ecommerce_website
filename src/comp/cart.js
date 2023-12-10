@@ -1,13 +1,13 @@
 import React from 'react'
 import './cart.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { AiOutlineClose } from 'react-icons/ai';
 
 const Cart = ({cart, setCart}) => {
 
 
-  const Navigate=useNavigate()
+
 
 
   // Increase Quantity of cart product
@@ -104,7 +104,7 @@ const Cart = ({cart, setCart}) => {
             <div className='Total'>
               <h4>Sub Total: ${total}</h4>
             </div>
-            <button onClick={()=>{Navigate('/payment')}}>checkout</button>
+            <button  >checkout</button>
             </>
           }
         </div>

@@ -8,6 +8,9 @@ import Login from './login';
 import Register from './singup';
 import PaymentSection from './payment';
 
+import "../comp/nav.css"
+
+
 const Rout = ({shop, Filter, allcatefilter, addtocart, cart, setCart}) => {
   return (
     <>
@@ -19,6 +22,7 @@ const Rout = ({shop, Filter, allcatefilter, addtocart, cart, setCart}) => {
         <Route path="/payment" element={<PaymentSection/>}/>
         <Route path='shop' element={<Shop shop={shop} Filter={Filter} allcatefilter={allcatefilter} addtocart={addtocart}/>} />
         <Route path='/contact' element={<Contact />} />
+        
 
          
     </Routes>

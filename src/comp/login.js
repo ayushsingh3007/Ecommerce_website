@@ -18,22 +18,25 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // const handlelogout = async () => {
-  //   try {
-      
-  //     await axios.get('http://localhost:5000/api/user/logout');
-  
-  
-  //       navigate('/'); 
-  
-      
-  //     toast.success('Logout successful');
-  //   } catch (error) {
-  //     console.log('Logout failed:', error.response ? error.response.data : error.message);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  //     toast.error('Logout failed. Please try again.');
-  //   }
-  // };
+  const handleLogout = async () => {
+    try {
+      
+      await axios.post('http://localhost:5000/api/user/logout');
+  
+  
+        navigate('/'); 
+  
+      
+      toast.success('Logout successful');
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.log('Logout failed:', error.response ? error.response.data : error.message);
+
+      toast.error('Logout failed. Please try again.');
+    }
+  };
   
 
   const handleLogin = async (e) => {
@@ -41,12 +44,14 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/user/login', formData);
       console.log('User logged in:', response.data);
-
+      setIsLoggedIn(true);
       navigate('/'); 
   
   
       toast.success('Login successful');
-    } catch (error) {
+    }
+    
+    catch (error) {
       console.log('Login failed');
   
     
@@ -61,32 +66,35 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <div className='form-container'>
           <div>
-            <h3 >Login</h3>
-            <hr/>
+            <h3>Login</h3>
+            <hr />
             <label>
-              <h3> Email:</h3>
-              <input type="email" name="email" onChange={handleChange} required />
+              <h3>Email:</h3>
+              <input type='email' name='email' onChange={handleChange} required />
             </label>
           </div>
           <div>
             <label>
-             <h3> Password:</h3>
-              <input type="password" name="password" onChange={handleChange} required />
+              <h3>Password:</h3>
+              <input type='password' name='password' onChange={handleChange} required />
             </label>
           </div>
           <div>
-            <button type="submit">Login</button>
-            <Link to="/signup" className='newuser-link'><p className='newuser-para'>New user? Register Now</p></Link>
+            {isLoggedIn ? (
+              <button type='button' onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <>
+                <button type='submit'>Login</button>
+                <Link to='/signup' className='newuser-link'>
+                  <p className='newuser-para'>New user? Register Now</p>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </form>
-
-    
-
-        {/* <button onClick={handlelogout}>Logout</button> */}
-      
-        
-    
     </div>
   );
 };

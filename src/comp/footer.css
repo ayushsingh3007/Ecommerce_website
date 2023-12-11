@@ -122,7 +122,28 @@
 
 
 
-@media screen and (max-width:450px){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:550px){
     * {
         margin: 0;
         padding: 0;
@@ -132,7 +153,7 @@
 
     .footer {
         width: 100vw;
-        padding: 30px 20px; /* Adjusted padding for better spacing */
+        padding: 20px 0px; /* Adjusted padding for better spacing */
         background: #f6f6f6;
     }
 
@@ -140,20 +161,20 @@
         display: flex;
         flex-wrap: wrap; /* Allow flex items to wrap to the next line */
         justify-content: space-around; /* Improved spacing between items */
-        margin: auto;
+    
         max-width: 100%;
     }
 
     .footer .container .left-box {
         width: 100%; /* Adjusted width for better mobile layout */
-        padding: 15px 0px;
+        padding: 10px 0px;
         border-bottom: 2px solid #b8b7b7; /* Changed to bottom border for separation */
     }
 
     .footer .container .left-box .box {
         display: flex;
         align-items: center; /* Center items vertically */
-        padding: 10px 0px;
+        padding: 4px 10px;
         margin-top: 15px;
     }
 
@@ -175,43 +196,47 @@
     }
 
     .footer .container .left-box .box .detail p {
-        font-size: 12px; /* Increased font size for better readability */
+        font-size: 12px; 
         color: #232323;
     }
 
 .footer .container .right_box
 {
-    padding: 10px 25px;
-    width: 50%;
+    
+    width: 100%;
 }
 .footer .container .right_box .header
 {
-    max-width: 50%;
+    max-width: 100%;
     align-items: center;
 }
 .footer .container .right_box .header img
 {
-    margin-left: 5%;
+
     width: 60px;
 
 }
 .footer .container .right_box .header p
 {
-    margin-top: 15px;
-    font-size: 14px;
-    text-align: center;
-    font-weight: 600;
+    
+    font-size: 8px;
+
+    font-weight: 400;
     color: #8a8a8a;
+   display: none;
 }
 .footer .container .right_box .bottom
 {
-    padding: 20px 0px;
+    padding:10px 10px;
     margin-top: 30px;
-    width: 40%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    
+    
+    flex-direction:row;
     justify-content: space-between;
+    
 }
 .footer .container .right_box .bottom .box
 {
@@ -223,6 +248,7 @@
     color: #232323;
     font-size: 14px;
     letter-spacing: 1px;
+
 }
 .footer .container .right_box .bottom .box ul
 {

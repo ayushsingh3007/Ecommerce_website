@@ -22,21 +22,20 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
+      console.log('Submitting registration with data:', formData);
       const response = await axios.post('http://localhost:5000/api/user/register', formData);
       console.log('User registered:', response.data);
       // Optionally, redirect to a different page after successful registration
-         Navigate("/login");
-         toast.success('Regitered successful');
+      Navigate("/login");
+      toast.success('Registered successfully');
     } catch (error) {
-      console.log('Registration failed');
-      toast.success('Opps👀data not match');
-    
-      
+      console.error('Registration failed:', error.response ? error.response.data : error.message);
+      toast.error('Oops! Registration failed');
     }
   };
-
+  
   return (
     <div className="main-container-register">
       <h1>Register</h1>

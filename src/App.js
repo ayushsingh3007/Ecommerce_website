@@ -3,7 +3,7 @@ import Nav from './comp/nav';
 import { BrowserRouter } from 'react-router-dom';
 import Rout from './comp/rout';
 import Footer from './comp/footer';
-
+import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -50,18 +50,41 @@ const App = () => {
   };
 
   const addtocart = (product) => {
-    const exist = cart.find((x) => {
-      return x.id === product.id;
-    });
-
+    const exist = cart.find((x) => x.id === product._id);
+  
     if (exist) {
-      alert('This product is already added in cart');
+      alert('This product is already added in the cart');
     } else {
-      setCart([...cart, { ...product, qty: 1 }]);
-      alert('Added To cart');
+      const authToken = localStorage.getItem('authToken');
+  
+      if (authToken) {
+        fetch('http://localhost:5000/api/user/add-to-cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({ product }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setCart([...cart, { ...product, qty: 1 }]);
+           toast.success("item added successfully")
+          })
+          .catch((error) => console.log('Error adding to cart:', error));
+      } else {
+           toast.error("please try to login first")
+        // Handle the case where the user is not authenticated (redirect to login, show a message, etc.)
+      }
     }
   };
+  
 
+  
+
+ 
+
+  
   return (
     <>
       <ToastContainer />

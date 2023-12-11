@@ -32,7 +32,7 @@ const Home = ({ addtocart }) => {
         setData(fetchedData);
         productcategory();
       })
-      .catch((error) => console.error('Error fetching shop data:', error));
+      .catch((error) => console.log('Error fetching shop data:', error));
   }, [productcategory]);
 
   const filtercate = (x) => {

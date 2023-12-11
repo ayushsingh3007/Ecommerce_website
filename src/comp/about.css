@@ -1,0 +1,57 @@
+/* About.css */
+
+/* Reset some default styles */
+body,
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+/* Container styles */
+.about-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .about-container {
+    padding: 10px;
+  }
+}
+
+/* Section styles */
+.about-section {
+  margin-bottom: 20px;
+}
+
+/* Heading styles */
+h1, h2 {
+  color: #333;
+}
+
+/* Paragraph styles */
+p {
+  color: #666;
+}
+
+/* List styles */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 8px;
+  }
+}

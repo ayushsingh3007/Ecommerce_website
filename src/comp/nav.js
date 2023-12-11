@@ -92,8 +92,8 @@ const Nav = ({ search, setSearch, searchproduct }) => {
               <li><Link to='/' className='link' onClick={closeMenu}>Home</Link></li>
               <li><Link to='/shop' className='link' onClick={closeMenu}>Shop</Link></li>
               <li><Link to='/cart' className='link' onClick={closeMenu}>Cart</Link></li>
-              <li><Link to='/about' className='link' onClick={closeMenu}>About</Link></li>
-              <li><Link to='/contact' className='link' onClick={closeMenu}>Contact</Link></li>
+              <li><Link to='/contact' className='link' onClick={closeMenu}>About</Link></li>
+              <li><Link to='/about' className='link' onClick={closeMenu}>Contact</Link></li>
                 </div>
             </ul>
           </div>

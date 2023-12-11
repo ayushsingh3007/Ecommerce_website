@@ -6,7 +6,9 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 const Cart = ({cart, setCart}) => {
 
-
+const handlepayment=async()=>{
+     window.location.href="https://buy.stripe.com/test_fZeaGMdR6f5D31CeUU"
+}
 
 
 
@@ -104,7 +106,7 @@ const Cart = ({cart, setCart}) => {
             <div className='Total'>
               <h4>Sub Total: ${total}</h4>
             </div>
-            <button  >checkout</button>
+            <button  onClick={handlepayment}>checkout</button>
             </>
           }
         </div>

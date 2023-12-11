@@ -43,21 +43,21 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/user/login', formData);
-      console.log('User logged in:', response.data);
+      console.log('Received login response:', response.data);
+  
+      // Log the token before making subsequent requests
+      const token = response.data.token;
+      console.log('Token:', token);
+  
+      // Include the token in the headers of subsequent requests
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  
       setIsLoggedIn(true);
-      navigate('/'); 
-  
-  
+      navigate('/');
       toast.success('Login successful');
-    }
-    
-    catch (error) {
-      console.log('Login failed');
-  
-    
+    } catch (error) {
+      console.log('Login failed:', error.response ? error.response.data : error.message);
       toast.error('Login failed. Check your email and password.');
-  
-
     }
   };
   

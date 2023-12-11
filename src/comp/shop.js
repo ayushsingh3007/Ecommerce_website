@@ -5,7 +5,7 @@ const Shop = ({ shop, Filter, allcatefilter, addtocart }) => {
   const [showDetail, setShowDetail] = useState(false);
   const [detail, setDetail] = useState([]);
 
-  const detailpage = (product) => {
+  const detailpage = ({product}) => {
     setDetail(product);
     setShowDetail(true);
   };

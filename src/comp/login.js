@@ -42,24 +42,21 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/user/login', formData);
-      console.log('Received login response:', response.data);
-  
-      // Log the token before making subsequent requests
+      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/login', formData);
       const token = response.data.token;
-      console.log('Token:', token);
   
-      // Include the token in the headers of subsequent requests
+      // Set Authorization header for subsequent requests
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   
       setIsLoggedIn(true);
       navigate('/');
       toast.success('Login successful');
     } catch (error) {
-      console.log('Login failed:', error.response ? error.response.data : error.message);
+      console.log('Login failed:', error);
       toast.error('Login failed. Check your email and password.');
     }
   };
+  
   
   return (
     <div className='main-container-login'>

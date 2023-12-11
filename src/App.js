@@ -58,7 +58,7 @@ const App = () => {
       const authToken = localStorage.getItem('authToken');
   
       if (authToken) {
-        fetch('http://localhost:5000/api/user/add-to-cart', {
+        fetch('https://ecoomerce-backend.onrender.com/api/user/add-to-cart', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

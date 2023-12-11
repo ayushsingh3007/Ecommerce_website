@@ -8,7 +8,6 @@ import Login from './login';
 import Register from './singup';
 import PaymentSection from './payment';
 
-import "../comp/nav.css"
 import About from './about';
 
 

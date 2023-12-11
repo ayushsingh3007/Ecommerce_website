@@ -20,18 +20,30 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
+      
       console.log('Submitting registration with data:', formData);
-      const response = await axios.post('http://localhost:5000/api/user/register', formData);
+      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/register', formData);
       console.log('User registered:', response.data);
+      if(response.data.msg==="successfully resgister"){
+        toast.success("user register successfully ")
+        Navigate("/login");
+        alert("user registered")
+      }
+      else{
+        toast.error(response.data.msg)
+
+        
+      }
       // Optionally, redirect to a different page after successful registration
-      Navigate("/login");
-      toast.success('Registered successfully');
-    } catch (error) {
-      console.error('Registration failed:', error.response ? error.response.data : error.message);
+      
+      // toast.success('Registered successfully');
+    } catch (error) {  // console.log('Registration failed:', error.response ? error.response.data : error.message);
       toast.error('Oops! Registration failed');
     }
   };

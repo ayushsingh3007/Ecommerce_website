@@ -35,22 +35,20 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/login', formData);
-      const token = response.data.token;
-
-      // Store the token securely (localStorage is just an example, consider security implications)
-      localStorage.setItem('token', token);
-       if(response.data.msg==="successfully login"){
-           toast.success("successfully logged in")
-           navigate("/")
-       }
-       else{
-              toast.error("failed to login")
-       }
-    } catch (error) {
+      const token=localStorage.getItem('token')
+      const headers={
+        Authorization:`Bearer ${token}`,
+      }
+      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/login', { headers });
+    
+      console.log(response.data);
+      toast.success("welcome to my website ")
+      navigate('/shop')
+    } 
+    
+    catch (error) {
       console.log(error)
       alert("you are not an user")
-    
     }
   };
   

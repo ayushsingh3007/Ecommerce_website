@@ -28,7 +28,11 @@ const Register = () => {
     try {
       
       console.log('Submitting registration with data:', formData);
-      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/register', formData);
+      const token=localStorage.getItem('token')
+      const headers={
+        Authorization:`Bearer ${token}`,
+      }
+      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/register', {headers});
       console.log('User registered:', response.data);
       if(response.data.msg==="successfully resgister"){
         toast.success("user register successfully ")

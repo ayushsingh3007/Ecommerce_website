@@ -9,7 +9,7 @@ import "../comp/Register.css"
 
 const Login = () => {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,45 +18,41 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      
-      await axios.post('http://localhost:5000/api/user/logout');
-  
-  
-        navigate('/'); 
-  
-      
-      toast.success('Logout successful');
-      setIsLoggedIn(false);
-    } catch (error) {
-      console.log('Logout failed:', error.response ? error.response.data : error.message);
-
-      toast.error('Logout failed. Please try again.');
-    }
-  };
-  
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.post('http://localhost:5000/api/user/logout');
+  //     // Clear the stored token (remove it from localStorage, for example)
+  //     localStorage.removeItem('token');
+  //     navigate('/');
+  //     toast.success('Logout successful');
+  //   } catch (error) {
+  //     console.log('Logout failed:', error.response ? error.response.data : error.message);
+  //     toast.error('Logout failed. Please try again.');
+  //   }
+  // };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/login', formData);
       const token = response.data.token;
-  
-      // Set Authorization header for subsequent requests
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  
-      setIsLoggedIn(true);
-      navigate('/');
-      toast.success('Login successful');
+
+      // Store the token securely (localStorage is just an example, consider security implications)
+      localStorage.setItem('token', token);
+       if(response.data.msg==="successfully login"){
+           toast.success("successfully logged in")
+           navigate("/")
+       }
+       else{
+              toast.error("failed to login")
+       }
     } catch (error) {
-      console.log('Login failed:', error);
-      toast.error('Login failed. Check your email and password.');
+      console.log(error)
+      alert("you are not an user")
+    
     }
   };
-  
   
   return (
     <div className='main-container-login'>
@@ -77,18 +73,15 @@ const Login = () => {
             </label>
           </div>
           <div>
-            {isLoggedIn ? (
-              <button type='button' onClick={handleLogout}>
-                Logout
-              </button>
-            ) : (
+            
+             
               <>
                 <button type='submit'>Login</button>
                 <Link to='/signup' className='newuser-link'>
                   <p className='newuser-para'>New user? Register Now</p>
                 </Link>
               </>
-            )}
+            
           </div>
         </div>
       </form>

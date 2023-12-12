@@ -3,78 +3,84 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './singup.css';
-import { toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    number: '',
-  });
-    const Navigate=useNavigate()
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [rdata,rdataset]=useState({
+    firstname:"",
+    lastname:"",
+    email:"",
+    password:"",
+    number:"",
+  })
+  const nav=useNavigate()
+  const handleChange=(e)=>{
+    
+    rdataset({ ...rdata, [e.target.name]: e.target.value });
+    console.log(rdata)
   };
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    // https://nodehanson4.onrender.com/registerpage
+    axios
+      .post('https://ecoomerce-backend.onrender.com/api/user/register',rdata)
+      .then((res) => {
+        
+        // setStore(res.data.msg);
+        // alert(res.data.msg);
+        console.log(res.data)
+        
+        if (res.data.msg === "user successfully registered") {
+          localStorage.setItem('token',res.data.jwttoken)
 
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    try {
-      
-      console.log('Submitting registration with data:', formData);
-      const token=localStorage.getItem('token')
-      const headers={
-        Authorization:`Bearer ${token}`,
-      }
-      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/register', {headers});
-      console.log('User registered:', response.data);
-      if(response.data.msg==="successfully resgister"){
-        toast.success("user register successfully ")
-        Navigate("/login");
-        alert("user registered")
+          console.log(res.data.jwttoken)
+          nav("/login")
+          alert(res.data.msg)
       }
       else{
-        toast.error(response.data.msg)
-
-        
+        alert(res.data.msg)
       }
-      // Optionally, redirect to a different page after successful registration
-      
-      // toast.success('Registered successfully');
-    } catch (error) {  // console.log('Registration failed:', error.response ? error.response.data : error.message);
-      toast.error('Oops! Registration failed');
-    }
+      })
+      .catch((error) => {
+        console.log(error);
+        // alert("User has not registered, please try again");
+      });
+
+      rdataset({
+        firstname: "",
+        lastname:"",
+        email: "",
+        password: "",
+        number:"",
+      });
+
   };
   
   return (
     <div className="main-container-register">
       <h1>Register</h1>
-      <form className="form-container" onSubmit={handleSubmit} autoComplete='off'>
+      <form className="form-container"  onSubmit={handleSubmit} autoComplete='off'>
         <label>
           First Name:
-          <input type="text" name="firstname" onChange={handleChange} required />
+          <input type="text" name="firstname" value={rdata.firstname} onChange={handleChange} required />
         </label>
         <label>
           Last Name:
-          <input type="text" name="lastname" onChange={handleChange} required />
+          <input type="text" name="lastname" value={rdata.lastname} onChange={handleChange} required />
         </label>
         <label>
           Email:
-          <input type="email" name="email" onChange={handleChange} required />
+          <input type="email" name="email" value={rdata.email} onChange={handleChange} required />
         </label>
         <label>
           Password:
-          <input type="password" name="password" onChange={handleChange} required />
+          <input type="password" name="password" value={rdata.password} onChange={handleChange} required />
         </label>
         <label>
           Phone Number:
-          <input type="text" name="number" onChange={handleChange} required />
+          <input type="text" name="number" value={rdata.number} onChange={handleChange} required />
         </label>
         <button type="submit">Register</button>
       </form>

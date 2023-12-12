@@ -3,22 +3,65 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import "../comp/Register.css";
-import { toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import "../comp/Register.css"
 
 const Login = () => {
-  const navigate = useNavigate();
+  const nav=useNavigate()
+  const [ldata,ldataset]=useState({
+    email:"",
+    password:""
+  })
+  const handleChange=(e)=>{
+    
+    ldataset({ ...ldata, [e.target.name]: e.target.value });
+    console.log(ldata)
+  };
+  const handleLogin=(e)=>{
+    e.preventDefault()
+    axios
+      .post('https://ecombackend-82yd.onrender.com/login',ldata)
+      .then((res) => {
+        
+        
+        
+        if (res.data.msg === "your login successfully") {
+          localStorage.setItem("token", res.data.token);
+          console.log(res.data.jwttoken)
+          
+          alert(res.data.msg)
+          nav("/shop")
+      }
+      else{
+        alert(res.data.msg);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+       
+      });
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+      ldataset({        
+        email: "",
+        password: "",
+      });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
   // const handleLogout = async () => {
   //   try {
   //     await axios.post('http://localhost:5000/api/user/logout');
@@ -31,29 +74,9 @@ const Login = () => {
   //     toast.error('Logout failed. Please try again.');
   //   }
   // };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const token=localStorage.getItem('token')
-      const headers={
-        Authorization:`Bearer ${token}`,
-      }
-      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/login', { headers });
-    
-      console.log(response.data);
-      toast.success("welcome to my website ")
-      navigate('/shop')
-    } 
-    
-    catch (error) {
-      console.log(error)
-      alert("you are not an user")
-    }
-  };
-  
   return (
     <div className='main-container-login'>
+
       <form onSubmit={handleLogin}>
         <div className='form-container'>
           <div>
@@ -61,13 +84,13 @@ const Login = () => {
             <hr />
             <label>
               <h3>Email:</h3>
-              <input type='email' name='email' onChange={handleChange} required />
+              <input type='email' name='email' value={ldata.email} onChange={handleChange} required />
             </label>
           </div>
           <div>
             <label>
               <h3>Password:</h3>
-              <input type='password' name='password' onChange={handleChange} required />
+              <input type='password' name='password' value={ldata.password} onChange={handleChange} required />
             </label>
           </div>
           <div>

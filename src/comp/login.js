@@ -26,12 +26,12 @@ const Login = () => {
         
         
         
-        if (res.data.msg === "your login successfully") {
+        if (res.data.msg === "User login successfully") {
           localStorage.setItem("token", res.data.token);
           console.log(res.data.jwttoken)
-          
-          alert(res.data.msg)
           nav("/shop")
+          alert(res.data.msg)
+          
       }
       else{
         alert(res.data.msg);

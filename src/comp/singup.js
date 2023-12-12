@@ -32,11 +32,11 @@ const Register = () => {
         // alert(res.data.msg);
         console.log(res.data)
         
-        if (res.data.msg === "user successfully registered") {
+        if (res.data.msg === "User registered successfully!") {
           localStorage.setItem('token',res.data.jwttoken)
-
-          console.log(res.data.jwttoken)
           nav("/login")
+          console.log(res.data.jwttoken)
+          
           alert(res.data.msg)
       }
       else{

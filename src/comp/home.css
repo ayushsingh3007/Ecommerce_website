@@ -211,7 +211,7 @@ body{
     margin-top: 10px;
     align-items: center;
     padding: 10px 20px;
-    margin-left: 20px;
+    margin-left: 1px;
     border: none;
     background: none;
     outline: none;
@@ -738,8 +738,8 @@ body{
 {
     margin-top: 10px;
     align-items: center;
-    padding: 10px 10px;
-    margin-left: 20px;
+    padding: 10px 0px;
+    margin-left: 0px;
     border: none;
     background: none;
     outline: none;
@@ -1069,6 +1069,9 @@ body{
     font-family: sans-serif;
     box-sizing: border-box;
 }
+body{
+    overflow-x: hidden;
+}
 .home
 {
     width: 100%;
@@ -1273,9 +1276,9 @@ body{
 .home .trending .container .left_box .products .container .box .info .btn
 {
     margin-top: 10px;
-    align-items: center;
-    padding: 10px 10px;
-    margin-left: 20px;
+
+    padding: 8px 0px;
+    width: 150px;
     border: none;
     background: none;
     outline: none;
@@ -1342,7 +1345,8 @@ body{
 .home .trending .container .right_box .right_container .testimonial .detail .img_box img
 {
     margin-top: 40px;
-    margin-left: 50px;
+    position: relative;
+    left: 41px;
 }
 .home .trending .container .right_box .right_container .testimonial .detail .info
 {
@@ -1452,7 +1456,7 @@ body{
 }
 .home .banners
 {
-    padding: 20px 5px;
+    padding: 20px 0px;
     width: 100%;
 }
 .home .banners .container
@@ -1496,7 +1500,7 @@ body{
 }
 .home .product_type
 {
-    padding: 20px 8px;
+    padding: 20px 0px;
     width: 100%;
 }
 .home .product_type .container
@@ -1508,7 +1512,7 @@ body{
 }
 .home .product_type .container .box
 {
-    width: 420px;
+    width: 100%;
     height: auto;
     border: 3px solid #f6f7f8;
     overflow: hidden;
@@ -1526,6 +1530,7 @@ body{
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 600;
+    text-align: center;
 }
 .home .product_type .container .box .productbox
 {
@@ -1537,13 +1542,15 @@ body{
 }
 .home .product_type .container .box .productbox .img-box img
 {
-    width: 120px;
+    width: 170px;
     height: 150px;
     object-fit: cover;
 }
 .home .product_type .container .box .productbox .detail
 {
-    margin-left: 30px;
+   position:relative;
+   left:30px;
+   top:10px;
 }
 .home .product_type .container .box .productbox .detail h3
 {

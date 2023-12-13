@@ -21,7 +21,7 @@ const Login = () => {
   const handleLogin=(e)=>{
     e.preventDefault()
     axios
-      .post('https://ecombackend-82yd.onrender.com/login',ldata)
+      .post('http://localhost:3000/api/user/login',ldata)
       .then((res) => {
         
         

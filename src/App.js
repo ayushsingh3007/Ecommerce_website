@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     // Fetch data from your API and set it to the shop state and originalShop state
-    fetch('https://ecoomerce-backend.onrender.com/api/user/store')
+    fetch('http://localhost:5000/api/user/store')
       .then((response) => response.json())
       .then((data) => {
         setShop(data);

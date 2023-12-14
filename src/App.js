@@ -3,8 +3,7 @@ import Nav from './comp/nav';
 import { BrowserRouter } from 'react-router-dom';
 import Rout from './comp/rout';
 import Footer from './comp/footer';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -40,7 +39,7 @@ const App = () => {
   const searchproduct = () => {
     if (searchlength) {
       alert('Please Search Something!');
-      setShop(shop);
+      setShop(originalShop); // Assuming you want to reset the search on an empty string
     } else {
       const searchfilter = shop.filter((x) => {
         return x.cat === search;
@@ -50,44 +49,33 @@ const App = () => {
   };
 
   const addtocart = (product) => {
-    const exist = cart.find((x) => x.id === product._id);
+    const token = localStorage.getItem('token');
   
-    if (exist) {
-      alert('This product is already added in the cart');
-    } else {
-      const authToken = localStorage.getItem('authToken');
-  
-      if (authToken) {
-        fetch('https://ecoomerce-backend.onrender.com/api/user/add-to-cart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-          },
-          body: JSON.stringify({ product }),
+    if (token) {
+      fetch('http://localhost:5000/api/user/add-to-cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ product }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setCart(data.cart);
+          toast.success('Item added successfully');
         })
-          .then((response) => response.json())
-          .then((data) => {
-            setCart([...cart, { ...product, qty: 1 }]);
-           toast.success("item added successfully")
-          })
-          .catch((error) => console.log('Error adding to cart:', error));
-      } else {
-           toast.error("please try to login first")
-        // Handle the case where the user is not authenticated (redirect to login, show a message, etc.)
-      }
+        .catch((error) => console.log('Error adding to cart:', error));
+    } else {
+      toast.error('Please log in first');
+      // Handle the case where the user is not authenticated (redirect to login, show a message, etc.)
     }
-  };
-  
+  };  
 
-  
-
- 
-
-  
   return (
     <>
       <ToastContainer />
+
       <BrowserRouter>
         <Nav search={search} setSearch={setSearch} searchproduct={searchproduct} />
         <Rout setCart={setCart} cart={cart} shop={shop} Filter={Filter} allcatefilter={allcatefilter} addtocart={addtocart} />

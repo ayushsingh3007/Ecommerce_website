@@ -13,43 +13,36 @@ const Login = () => {
     email:"",
     password:""
   })
-  const handleChange=(e)=>{
-    
+  const handleChange = (e) => {
     ldataset({ ...ldata, [e.target.name]: e.target.value });
-    console.log(ldata)
-  };
-  const handleLogin=(e)=>{
-    e.preventDefault()
-    axios
-      .post('http://localhost:3000/api/user/login',ldata)
-      .then((res) => {
-        
-        
-        
-        if (res.data.msg === "User login successfully") {
-          localStorage.setItem("token", res.data.token);
-          console.log(res.data.jwttoken)
-          nav("/shop")
-          alert(res.data.msg)
-          
-      }
-      else{
-        alert(res.data.msg);
-      }
-      })
-      .catch((error) => {
-        console.log(error);
-       
-      });
-
-      ldataset({        
-        email: "",
-        password: "",
-      });
-
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/login', ldata);
+      const { msg, token } = response.data;
+
+      if (msg === 'User login successfully') {
+        localStorage.setItem('token', token);
+        nav('/shop');
+        alert(msg);
+      } else {
+        alert(msg);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred during login. Please try again.');
+    }
+
+    ldataset({
+      email: '',
+      password: '',
+    });
+  };
+
+  
 
 
 

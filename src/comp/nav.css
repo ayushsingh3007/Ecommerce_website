@@ -40,11 +40,12 @@ body {
 
 .search_box {
   display: flex;
-  align-items: center;
+  
 }
 
 .input {
   padding: 5px, 10px;
+
   
   
 }
@@ -57,7 +58,7 @@ body {
 .btn button {
   background-color: #fff;
   color: #333;
-  padding: 5px 10px;
+  padding: 5px 5px;
   border: none;
   cursor: pointer;
 }

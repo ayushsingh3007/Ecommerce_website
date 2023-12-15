@@ -17,7 +17,7 @@ const Cart = ({cart, setCart}) => {
       const headers = {
         "Content-Type": "application/json"
       };
-      const response = await fetch("http://localhost:5000/api/user/create-checkout-session", {
+      const response = await fetch("https://ecoomerce-backend.onrender.com/api/user/create-checkout-session", {
         method: "POST",
         headers: headers,
         body: JSON.stringify(body)

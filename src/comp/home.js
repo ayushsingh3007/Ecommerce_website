@@ -26,7 +26,7 @@ const Home = ({ addtocart }) => {
   }, [data]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/user/store')
+    fetch('https://ecoomerce-backend.onrender.com/api/user/store')
       .then((response) => response.json())
       .then((fetchedData) => {
         setData(fetchedData);

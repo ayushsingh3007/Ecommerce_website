@@ -1,286 +1,145 @@
 /* nav.css */
-*{
+
+* {
   margin: 0;
   padding: 0;
 }
-body{
+
+body {
   overflow-x: hidden;
 }
+
 .header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-  }
-  
-  .top_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .icon {
-    font-size: 1.5rem;
-    margin-right: 5px;
-  }
-  
-  .mid_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .logo img {
-    width: 50px; /* Adjust the width as needed */
-  }
-  
-  .search_box {
-    display: flex;
-    align-items: center;
-  }
-  
-  input {
-    padding: 5px;
-    margin-right: 5px;
-  }
-  
-  .user {
-    display: flex;
-    align-items: center;
-  }
-  
-  .btn button {
-    background-color: #fff;
-    color: #333;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .last_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .user_profile {
-    display: flex;
-    align-items: center;
-  }
-  
-  .toggle-button {
-    display: none;
-    cursor: pointer;
-    font-size: 20px;
-    color: #fff;
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-  }
-  
-  .menu-links {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-  }
-  
-  .link {
-    text-decoration: none;
-    color: #fff;
-    padding: 10px 15px;
-  }
-  
-  .offer {
-    background-color: #555;
-    color: #fff;
-    padding: 10px;
-  }
-  
-  /* Media Query for responsive design */
-  @media screen and (max-width: 768px) {
-    .toggle-button {
-      display: block;
-    }
-  
-    .menu-links {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 10%;
-      left: 0;
-      background-color: #333;
-      width: 100%;
-      text-align: center;
-      z-index: 1;
-    }
-  
-    .menu-links.open {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-  
-    .link {
-      padding: 15px 0;
-      border-bottom: 1px solid #555;
-    }
-  }
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
 
+.top_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-@media screen and (min-width:360px) and (max-width:480px){
-  *{
-    margin: 0;
-    padding: 0;
-  }
-  body{
-    overflow-x: hidden;
-  }
-  .header {
-      background-color: #333;
-      color: #fff;
-      padding: 10px;
-    }
-    
-    .top_header {
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .icon {
-      font-size: 1.5rem;
-      margin-right: 5px;
-      display: none;
-    }
-    
-    .mid_header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-    }
-    
-    .logo img {
-      width: 50px; /* Adjust the width as needed */
-     display: none;
-    }
-    
-    .search_box {
-      display: flex;
-      align-items: center;
-    }
-    
-    input {
-      padding: 0px;
-      position: relative;
-      left: 0px;
+.icon {
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
 
-    }
-    
-    .user {
-      display: flex;
-      align-items: center;
-    }
-    
-    .btn button {
-      background-color: #fff;
-      color: #333;
-      padding: 15px 20px;
-      border: none;
-      cursor: pointer;
-      font-size: large;
-    }
-    
-    .last_header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-    }
-    
-    .user_profile {
-      display: flex;
-      align-items: center;
-    }
-    
-    .toggle-button {
-      display: none;
-      cursor: pointer;
-      font-size: 20px;
-      color: #fff;
-    }
-    
-    .nav {
-      display: flex;
-      align-items: center;
-    }
-    
-    .menu-links {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-    }
-    
-    .link {
-      text-decoration: none;
-      color: #fff;
-      padding: 10px 15px;
-    }
-    
-    .offer {
-      background-color: #555;
-      color: #fff;
-      padding: 10px;
-      display: none;
-    }
-    
-    /* Media Query for responsive design */
-    @media screen and (max-width: 768px) {
-      .toggle-button {
-        display: block;
-        position: relative;
+.mid_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
 
-      }
-    
-      .menu-links {
-        display: none;
-        
-        flex-direction: column;
-        position: absolute;
-        top: 10%;
-        left: 0;
-        background-color: #333;
-        width: 100%;
-        text-align: center;
-        z-index: 1;
-      }
-    
-      .menu-links.open {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-    
-      .link {
-        padding: 5px 20px;
-        border-bottom: 1px solid #555;
-      }
-    }
-  
+.logo img {
+  width: 50px; /* Adjust the width as needed */
+  display: none;
+}
+
+.search_box {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  padding: 5px, 10px;
   
   
 }
 
+.user {
+  display: flex;
+  align-items: center;
+}
 
+.btn button {
+  background-color: #fff;
+  color: #333;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
 
+.last_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
 
+.user_profile {
+  display: flex;
+  align-items: center;
+}
 
+.toggle-button {
+  display: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+}
 
+.nav {
+  display: flex;
+  align-items: center;
+}
 
+/* Styles for the Hamburger Menu Icon */
+.menu-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  margin-right: 10px;
+}
 
-  
+/* Styles for the regular navigation menu (adjust as needed) */
+.menu-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 15px;
+}
+
+.offer {
+  background-color: #555;
+  color: #fff;
+  padding: 10px;
+}
+
+/* Media Query for responsive design */
+@media screen and (max-width: 768px) {
+  .toggle-button {
+    display: block;
+  }
+
+  .menu-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .menu-links.open {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .link {
+    padding: 15px 0;
+    border-bottom: 1px solid #555;
+  }
+}

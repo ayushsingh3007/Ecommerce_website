@@ -23,7 +23,7 @@ const Register = () => {
   };
   const handleSubmit=(e)=>{
     e.preventDefault()
-    // https://nodehanson4.onrender.com/registerpage
+  
     axios
       .post('http://localhost:5000/api/user/register',rdata)
       .then((res) => {

@@ -1,17 +1,34 @@
 import React from 'react'
 import './cart.css'
 import { Link } from 'react-router-dom'
+import {loadStripe} from '@stripe/stripe-js';
+
 
 import { AiOutlineClose } from 'react-icons/ai';
 
 const Cart = ({cart, setCart}) => {
 
-const handlepayment=async()=>{
-     window.location.href="https://buy.stripe.com/test_fZeaGMdR6f5D31CeUU"
-}
-
-
-
+  const handlepayment = async () => {
+    try {
+      const stripe = await loadStripe("pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA");
+      const body = {
+        products: cart
+      };
+      const headers = {
+        "Content-Type": "application/json"
+      };
+      const response = await fetch("http://localhost:5000/api/user/create-checkout-session", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body)
+      });
+      const session = await response.json();
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
+  
   // Increase Quantity of cart product
   const incqty = (product) => 
   {

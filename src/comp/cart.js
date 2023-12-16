@@ -14,8 +14,10 @@ const Cart = ({cart, setCart}) => {
       const body = {
         products: cart
       };
+      
       const headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+       
       };
       const response = await fetch("http://localhost:5000/api/user/create-checkout-session", {
         method: "POST",
@@ -26,6 +28,7 @@ const Cart = ({cart, setCart}) => {
       await stripe.redirectToCheckout({ sessionId: session.id });
     } catch (error) {
       console.error("Error during checkout:", error);
+      alert('login first')
     }
   };
   

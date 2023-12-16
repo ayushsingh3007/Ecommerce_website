@@ -6,6 +6,7 @@ import { AiOutlineSearch, AiOutlineMenu, AiOutlineDown } from 'react-icons/ai';
 import { CiUser } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import '../comp/nav.css';
+import axios from 'axios'
 
 const Nav = ({ search, setSearch, searchproduct }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,12 +30,45 @@ const Nav = ({ search, setSearch, searchproduct }) => {
     nav('/login');
     closeMenu();
   };
-
-  const handleLogout = () => {
-    localStorage.clear('token');
-    closeMenu();
+  const handleLogout = async () => {
+    try {
+      // Retrieve token from local storage
+      const token = localStorage.getItem('token');
+  
+      if (!token) {
+        alert('No token found. Please log in.');
+        return;
+      }
+      
+       console.log(token)
+      // Make a request to the logout endpoint
+      const response = await axios.post('http://localhost:5000/api/user/logout', { token });
+  
+      // Log the response for debugging
+      console.log('Logout Response:', response);
+  
+      const { msg } = response.data;
+  
+      if (msg) {
+        // Use the message received from the server
+        alert(msg);
+  
+        if (msg === 'User logged out successfully') {
+          // Remove token from local storage
+          localStorage.removeItem('token');
+          closeMenu();
+          // Additional logic if needed after successful logout
+        }
+      } else {
+        alert('Logout failed. Please try again.');
+      }
+    } catch (error) {
+      // Log any errors that occur during the logout process
+      console.error('Logout failed:', error.response ? error.response.data : error.message);
+      alert('Logout failed. Please try again.');
+    }
   };
-
+  
   const closeMenu = () => {
     setIsOpen(false);
     setIsDropdownOpen(false);

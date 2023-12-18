@@ -7,7 +7,6 @@ import { CiUser } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import '../comp/nav.css';
 
-
 const Nav = ({ search, setSearch, searchproduct }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -30,22 +29,23 @@ const Nav = ({ search, setSearch, searchproduct }) => {
     nav('/login');
     closeMenu();
   };
+
   const handleLogout = async () => {
-    const token=localStorage.getItem('token');
-    if(token){
-      localStorage.clear('token')
-      alert('logout successfully ')
+    const token = localStorage.getItem('token');
+    if (token) {
+      localStorage.clear('token');
+      alert('Logout successfully');
+    } else {
+      console.log('Invalid token');
+      alert('Invalid token');
     }
-    else{
-      console.log('invalid token')
-      alert('invalid token ')
-    }
-  }
-  
+  };
+
   const closeMenu = () => {
     setIsOpen(false);
     setIsDropdownOpen(false);
   };
+  const isLoggedIn = !!localStorage.getItem('token');
 
   return (
     <>
@@ -82,7 +82,7 @@ const Nav = ({ search, setSearch, searchproduct }) => {
               <div className='dropdown-content'>
                 <button onClick={handleRegister}>Register</button>
                 <button onClick={handleLogin}>Login</button>
-                <button onClick={handleLogout}>Logout</button>
+                {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
               </div>
             )}
           </div>

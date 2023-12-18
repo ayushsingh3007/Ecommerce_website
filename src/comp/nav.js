@@ -8,7 +8,7 @@ import '../comp/nav.css';
 
 const Nav = ({ search, setSearch, searchproduct }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
   const nav = useNavigate();
 
   const toggleMenu = () => {

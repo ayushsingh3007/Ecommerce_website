@@ -25,7 +25,7 @@ const Register = () => {
     e.preventDefault()
   
     axios
-      .post('https://ecoomerce-backend.onrender.com/api/user/register',rdata)
+      .post('http://localhost:5000/api/user/register',rdata)
       .then((res) => {
         
         // setStore(res.data.msg);
@@ -33,9 +33,9 @@ const Register = () => {
         console.log(res.data)
         
         if (res.data.msg === "User registered successfully!") {
-          localStorage.setItem('token',res.data.jwttoken)
+          localStorage.setItem('token',res.data.token)
           nav("/login")
-          console.log(res.data.jwttoken)
+          console.log(res.data.token)
           
           alert(res.data.msg)
       }

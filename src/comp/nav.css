@@ -45,6 +45,7 @@ body {
 
 .input {
   padding: 5px, 10px;
+  width: 300px;
 
   
   
@@ -89,6 +90,7 @@ body {
 
 /* Styles for the Hamburger Menu Icon */
 .menu-icon {
+  display: none;
   font-size: 1.5rem;
   cursor: pointer;
   color: #fff;
@@ -101,6 +103,8 @@ body {
   padding: 0;
   margin: 0;
   display: flex;
+  gap: 20px;
+  width: 100%;
 }
 
 .link {
@@ -120,6 +124,16 @@ body {
   .toggle-button {
     display: block;
   }
+  .menu-icon {
+    display: block;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    margin-right: 10px;
+  }
+  .input{
+    width: 150px;
+  }
 
   .menu-links {
     display: none;
@@ -128,7 +142,8 @@ body {
     top: 10%;
     left: 0;
     background-color: #333;
-    width: 100%;
+    width: 100vw;
+    
     text-align: center;
     z-index: 1;
   }
@@ -137,10 +152,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
+    
   }
 
   .link {
     padding: 15px 0;
     border-bottom: 1px solid #555;
+    
+  
   }
 }

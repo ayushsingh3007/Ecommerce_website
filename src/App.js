@@ -3,31 +3,32 @@ import Nav from './comp/nav';
 import { BrowserRouter } from 'react-router-dom';
 import Rout from './comp/rout';
 import Footer from './comp/footer';
+import axios from 'axios'
 
 const App = () => {
   const [cart, setCart] = useState([]);
   const [shop, setShop] = useState([]);
   const [originalShop, setOriginalShop] = useState([]);
   const [search, setSearch] = useState('');
-  const [token, setToken] = useState(''); // Move token to the component scope
+  
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      console.log(token);
       try {
-        // Fetch data from your API and set it to the shop state and originalShop state
-        const response = await fetch('http://localhost:5000/api/user/store');
-        const data = await response.json();
+        // Use axios for the request and include the authorization header
+        const response = await axios.get('http://localhost:5000/api/user/store', {
+          headers: { "authorization": `Bearer ${token}` }
+        });
+        const data = response.data;
         setShop(data);
         setOriginalShop(data);
-
-        // Ensure that localStorage.getItem('token') returns a valid value
-        const storedToken = localStorage.getItem('token') || '';
-        setToken(storedToken);
       } catch (error) {
         console.error('Error fetching shop data:', error);
       }
     };
-
+  
     fetchData();
   }, []);
 
@@ -51,24 +52,42 @@ const App = () => {
       setShop(searchfilter);
     }
   };
+
+
+
   const addtocart = (product) => {
-    // Check if the user is authenticated by checking the token
+    // Retrieve the token from localStorage
+    const token = localStorage.getItem('token');
+    console.log('Token:', token);
+
+  
+    // Check if the token is present
     if (!token) {
       // If not authenticated, show an alert and don't add the product to the cart
       alert('Please log in to add products to the cart.');
       return;
     }
   
-    // Check if the product is already in the cart
-    const exist = cart.find((x) => x.id === product.id);
+    // If the token is present, proceed with authentication
+    axios.get("http://localhost:5000/api/user/auth", { headers: { "authorization": `Bearer ${token}` } })
+      .then((res) => {
+        console.log(res.data);
   
-    if (exist) {
-      alert('This product is already added to the cart');
-    } else {
-      // If not in the cart, update the cart state
-      setCart([...cart, { ...product, qty: 1 }]);
-      alert('Added to cart');
-    }
+        // Check if the product is already in the cart
+        const exist = cart.find((x) => x.id === product.id);
+  
+        if (exist) {
+          alert('This product is already added to the cart');
+        } else {
+          // If not in the cart, update the cart state
+          setCart([...cart, { ...product, qty: 1 }]);
+          alert('Added to cart');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('Authentication failed. Please try again.');
+      });
   };
 
   return (

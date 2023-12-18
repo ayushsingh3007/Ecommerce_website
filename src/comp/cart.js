@@ -31,6 +31,8 @@ const Cart = ({cart, setCart}) => {
       alert('login first')
     }
   };
+
+  
   
   // Increase Quantity of cart product
   const incqty = (product) => 
@@ -99,8 +101,8 @@ const Cart = ({cart, setCart}) => {
                   </div>
                   <div className='detail'>
                     <div className='info'>
-                    <h4>{curElm.cat}</h4>
-                    <h3>{curElm.Name}</h3>
+                  
+                    <h4>{curElm.Name}</h4>
                     <p>Price: ${curElm.price}</p>
                     <p>Total: ${curElm.price * curElm.qty}</p>
                     </div>

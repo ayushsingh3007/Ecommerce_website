@@ -2,9 +2,10 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AiFillEye, AiFillHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiLogoFacebook, BiLogoTwitter, BiLogoInstagram, BiLogoYoutube } from 'react-icons/bi';
+
 import '../comp/home.css';
 
-const Home = ({ addtocart }) => {
+const Home = ({addtocart}) => {
   const [newProduct, setNewProduct] = useState([]);
   const [featuredProduct, setFeaturdProduct] = useState([]);
   const [topProduct, setTopProduct] = useState([]);
@@ -21,12 +22,16 @@ const Home = ({ addtocart }) => {
     const topcategory = data.filter((x) => x.type === 'top');
     setTopProduct(topcategory);
 
-    // Initialize trendingProduct with the original data
     setTrendingProduct(data);
   }, [data]);
+    
 
+  
   useEffect(() => {
-    fetch('https://ecoomerce-backend.onrender.com/api/user/store')
+    const token =localStorage.getItem('token')
+    fetch('http://localhost:5000/api/user/store', {
+      headers: { "authorization": `Bearer ${token}` }
+    })
       .then((response) => response.json())
       .then((fetchedData) => {
         setData(fetchedData);
@@ -46,7 +51,7 @@ const Home = ({ addtocart }) => {
     setTrendingProduct(data);
   };
 
-
+  
   return (
     <>
       

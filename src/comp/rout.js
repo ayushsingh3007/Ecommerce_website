@@ -6,7 +6,7 @@ import Cart from './cart';
 import Contact from './contact';
 import Login from './login';
 import Register from './singup';
-import PaymentSection from './payment';
+
 
 import About from './about';
 
@@ -19,7 +19,7 @@ const Rout = ({shop, Filter, allcatefilter, addtocart, cart, setCart}) => {
         <Route path='/cart' element={<Cart cart={cart} setCart ={setCart}/>} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Register/>}/>
-        <Route path="/payment" element={<PaymentSection/>}/>
+        
         <Route path='/shop' element={<Shop shop={shop} Filter={Filter} allcatefilter={allcatefilter} addtocart={addtocart}/>} />
         <Route path='/about' element={<Contact />} />
         <Route path="/contact" element={<About/>}/>

@@ -1,4 +1,3 @@
-// Nav.js
 
 import React, { useState } from 'react';
 import { MdLocalShipping } from 'react-icons/md';
@@ -72,10 +71,10 @@ const Nav = ({ search, setSearch, searchproduct }) => {
             <button onClick={searchproduct}><AiOutlineSearch /></button>
           </div>
 
-          {/* Hamburger Menu Icon for Small Screens */}
+          
           <AiOutlineMenu className='menu-icon' onClick={toggleMenu} />
 
-          {/* User Dropdown Icon */}
+        
           <div className='user' onClick={toggleDropdown}>
             <AiOutlineDown className='mobile-dropdown-icon' />
             {isDropdownOpen && (

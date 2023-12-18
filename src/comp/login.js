@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/user/login', ldata);
+      const response = await axios.post('https://ecoomerce-backend.onrender.com/api/user/login', ldata);
       const { msg, token } = response.data;
 
       if (msg === 'User login successfully') {

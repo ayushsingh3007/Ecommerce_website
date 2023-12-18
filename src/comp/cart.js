@@ -103,6 +103,7 @@ const Cart = ({cart, setCart}) => {
                     <div className='info'>
                   
                     <h4>{curElm.Name}</h4>
+                    <p>{curElm.des}</p>
                     <p>Price: ${curElm.price}</p>
                     <p>Total: ${curElm.price * curElm.qty}</p>
                     </div>

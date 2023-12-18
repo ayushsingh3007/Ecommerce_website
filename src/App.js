@@ -18,7 +18,7 @@ const App = () => {
       console.log(token);
       try {
         // Use axios for the request and include the authorization header
-        const response = await axios.get('http://localhost:5000/api/user/store', {
+        const response = await axios.get('https://ecoomerce-backend.onrender.com/api/user/store', {
           headers: { "authorization": `Bearer ${token}` }
         });
         const data = response.data;
@@ -71,7 +71,7 @@ const App = () => {
     }
   
     // If the token is present, proceed with authentication
-    axios.get("http://localhost:5000/api/user/auth", { headers: { "authorization": `Bearer ${token}` } })
+    axios.get("https://ecoomerce-backend.onrender.com/api/user/auth", { headers: { "authorization": `Bearer ${token}` } })
       .then((res) => {
         console.log(res.data);
   

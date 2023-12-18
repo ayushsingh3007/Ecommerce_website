@@ -46,9 +46,11 @@ const App = () => {
   const searchproduct = () => {
     if (searchlength) {
       alert('Please Search Something!');
-      setShop(originalShop); // Assuming you want to reset the search on an empty string
+      setShop(originalShop); // Reset the search on an empty string
     } else {
-      const searchfilter = shop.filter((x) => x.cat === search);
+      const searchfilter = originalShop.filter((product) =>
+        product.Name.toLowerCase().includes(search.toLowerCase())
+      );
       setShop(searchfilter);
     }
   };

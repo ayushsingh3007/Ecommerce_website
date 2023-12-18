@@ -24,11 +24,7 @@ const Nav = ({ search, setSearch, searchproduct }) => {
     closeMenu();
   };
 
-  const handleLogin = () => {
-    nav('/login');
-    closeMenu();
-  };
-
+ 
   const handleLogout = async () => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -80,7 +76,7 @@ const Nav = ({ search, setSearch, searchproduct }) => {
             {isDropdownOpen && (
               <div className='dropdown-content'>
                 <button onClick={handleRegister}>Register</button>
-                <button onClick={handleLogin}>Login</button>
+                
                 {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
               </div>
             )}

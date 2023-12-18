@@ -29,7 +29,7 @@ const Home = ({addtocart}) => {
   
   useEffect(() => {
     const token =localStorage.getItem('token')
-    fetch('http://localhost:5000/api/user/store', {
+    fetch('https://ecoomerce-backend.onrender.com/api/user/store', {
       headers: { "authorization": `Bearer ${token}` }
     })
       .then((response) => response.json())

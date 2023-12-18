@@ -36,7 +36,7 @@
 .cart .empty_cart button {
   margin-top: 10px;
   padding: 10px 15px;
-  background: #cd176c;
+  background: #706068;
   color: #fff;
   border: none;
   outline: none;
@@ -83,20 +83,20 @@
 /* Cart Item Information */
 .cart .container .box .detail .info {
   margin-top: 10px;
-  margin-left: 0;
+  margin-left: 5px;
 }
 
 /* Cart Item Quantity */
 .cart .container .box .detail .quantity {
   margin-top: 10px;
-  margin-left: 0;
+  margin-left: 20px;
   display: flex;
   align-items: center;
 }
 
 .cart .container .box .detail .quantity button {
   margin-right: 10px;
-  background: #cd176c;
+  background: #504e4f;
   color: #fff;
   border: none;
   outline: none;
@@ -109,7 +109,7 @@
   height: 40px;
   width: 60px;
   margin-right: 10px;
-  border: 1px solid #cd176c;
+  border: 1px solid #53454c;
   border-radius: 5px;
   text-align: center;
 }

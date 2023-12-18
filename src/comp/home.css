@@ -2203,7 +2203,7 @@ body{
 .home .trending .container .left_box
 {
     padding: 10px 0px;
-    width: 75%;
+    width: 100%;
 }
 .home .trending .container .left_box .header
 {
@@ -2252,7 +2252,7 @@ body{
 .home .trending .container .left_box .products button
 {
     margin-top: 20px;
-    margin-left: 45%;
+    margin-left: 0%;
     padding: 10px 30px;
     background: none;
     outline: none;
@@ -2358,6 +2358,7 @@ body{
     width: 47%;
     display: flex;
     flex-direction: column;
+    display: none;
 }
 .home .trending .container .right_box .right_container
 {
@@ -2513,6 +2514,7 @@ body{
 .home .banners .container .left_box
 {
     width: 100%;
+    display: none;
 }
 .home .banners .container .left_box .box
 {
@@ -2558,6 +2560,7 @@ body{
     height: 490px;
     border: 3px solid #f6f7f8;
     overflow: hidden;
+    
 }
 .home .product_type .container .box .header
 {
@@ -2566,6 +2569,7 @@ body{
     background: #f6f6f6;
     padding: 10px 10px;
 }
+
 .home .product_type .container .box .header h2
 {
     color: #232323;

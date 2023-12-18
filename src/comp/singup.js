@@ -25,7 +25,7 @@ const Register = () => {
     e.preventDefault()
   
     axios
-      .post('http://localhost:5000/api/user/register',rdata)
+      .post('https://ecoomerce-backend.onrender.com/api/user/register',rdata)
       .then((res) => {
         
         // setStore(res.data.msg);

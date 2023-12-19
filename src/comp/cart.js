@@ -2,33 +2,48 @@ import React from 'react'
 import './cart.css'
 import { Link } from 'react-router-dom'
 import {loadStripe} from '@stripe/stripe-js';
-
+import {useHistory} from 'react-router';
 
 import { AiOutlineClose } from 'react-icons/ai';
 
 const Cart = ({cart, setCart}) => {
 
+  const history=useHistory()
   const handlepayment = async () => {
     try {
       const stripe = await loadStripe("pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA");
       const body = {
         products: cart
       };
-      
+
       const headers = {
         "Content-Type": "application/json",
-       
       };
+
       const response = await fetch("https://ecoomerce-backend.onrender.com/api/user/create-checkout-session", {
         method: "POST",
         headers: headers,
         body: JSON.stringify(body)
       });
+
       const session = await response.json();
-      await stripe.redirectToCheckout({ sessionId: session.id });
+
+      const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+      if (result.error) {
+        console.error("Error during checkout:", result.error);
+        alert('Payment failed or was not completed. Please try again.');
+      
+        localStorage.setItem('cart', JSON.stringify(cart));
+      
+        history.push('/cart');
+      } else {
+      
+        history.push('/');
+      }
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert('login first')
+      alert('Login first');
     }
   };
 

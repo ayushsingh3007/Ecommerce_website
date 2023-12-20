@@ -1,17 +1,21 @@
-import React from 'react'
-import './cart.css'
-import { Link } from 'react-router-dom'
-import {loadStripe} from '@stripe/stripe-js';
-import {useHistory} from 'react-router';
+import React, { useEffect } from 'react';
+import '../comp/cart.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
 
-import { AiOutlineClose } from 'react-icons/ai';
+const Cart = ({ cart, setCart }) => {
+  const navigate = useNavigate();
 
-const Cart = ({cart, setCart}) => {
+  useEffect(() => {
+    // Check if there is any cart data in local storage
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(storedCart);
+  }, [setCart]);
 
-  const history=useHistory()
-  const handlepayment = async () => {
+  const handlePayment = async () => {
     try {
       const stripe = await loadStripe("pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA");
+
       const body = {
         products: cart
       };
@@ -33,13 +37,13 @@ const Cart = ({cart, setCart}) => {
       if (result.error) {
         console.error("Error during checkout:", result.error);
         alert('Payment failed or was not completed. Please try again.');
-      
-        localStorage.setItem('cart', JSON.stringify(cart));
-      
-        history.push('/cart');
       } else {
       
-        history.push('/');
+        setCart([]);
+    
+        localStorage.removeItem('cart');
+        // Redirect to home page
+        navigate('/');
       }
     } catch (error) {
       console.error("Error during checkout:", error);
@@ -47,110 +51,86 @@ const Cart = ({cart, setCart}) => {
     }
   };
 
-  
-  
   // Increase Quantity of cart product
-  const incqty = (product) => 
-  {
-    const exist = cart.find((x) => 
-    {
-      return x.id === product.id
-    })
+  const incQty = (product) => {
     setCart(cart.map((curElm) => 
-    {
-      return curElm.id === product.id ? { ...exist, qty: exist.qty + 1} : curElm
-    }))
-  }
-  // decrese Quantity of cart product
-  const decqty = (product) => 
-  {
-    const exist = cart.find((x) => 
-    {
-      return x.id === product.id
-    })
-    setCart(cart.map((curElm) => 
-    {
-      return curElm.id === product.id ? {...exist ,qty: exist.qty - 1}: curElm
-    }))
-  }
+      curElm.id === product.id ? { ...curElm, qty: curElm.qty + 1 } : curElm
+    ));
+    // Save the updated cart data in localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+  };
 
-  //Removing cart product
-  const removeproduct = (product) => 
-  {
-    const exist = cart.find((x) => 
-    {
-      return x.id === product.id
-    })
-    if(exist.qty > 0)
-    {
-      setCart(cart.filter((curElm) => 
-      {
-        return curElm.id !== product.id
-      }))
-    }
-  }
-  //Total Price
-  const total = cart.reduce((price, item) => price + item.qty * item.price, 0)
+  // Decrease Quantity of cart product
+  const decQty = (product) => {
+    setCart(cart.map((curElm) => 
+      curElm.id === product.id ? { ...curElm, qty: curElm.qty - 1 } : curElm
+    ));
+    // Save the updated cart data in localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+  };
+
+  // Removing cart product
+  const removeProduct = (product) => {
+    setCart(cart.filter((curElm) => 
+      curElm.id !== product.id
+    ));
+    // Save the updated cart data in localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+  };
+
+  // Total Price
+  const total = cart.reduce((price, item) => price + item.qty * item.price, 0);
+
   return (
     <>
-    <div className='cart'>
-        <h3>#cart</h3>
-        {
-            cart.length === 0 && 
-            <>
+      <div className='cart'>
+        <h3 className='cart-heading'>#cart</h3>
+        {cart.length === 0 && 
+          <>
             <div className='empty_cart'>
-                <h2>Your Shopping cart is empty</h2>
-                <Link to='/shop'><button>Shop Now</button></Link>
+              <h2>Your Shopping cart is empty</h2>
+              <Link to='/shop'><button>Shop Now</button></Link>
             </div>
-            </>
+          </>
         }
-        <div className='container'>
-          {
-            cart.map((curElm) => 
-            {
-              return(
-                <>
-                <div className='box'>
-                  <div className='img_box'>
-                    <img src={curElm.image} alt=''></img>
-                  </div>
-                  <div className='detail'>
-                    <div className='info'>
-                  
-                    <h4>{curElm.Name}</h4>
-                    <p>{curElm.des}</p>
-                    <p>Price: ${curElm.price}</p>
-                    <p>Total: ${curElm.price * curElm.qty}</p>
-                    </div>
-                    <div className='quantity'>
-                      <button onClick={() => incqty (curElm)}>+</button>
-                      <input type='number' value={curElm.qty}></input>
-                      <button onClick={() => decqty (curElm)}>-</button>
-                    </div>
-                    <div className='icon'>
-                      <li onClick={() => removeproduct(curElm)}><AiOutlineClose /></li>
-                    </div>
-                  </div>
+        <div className='cart-container'>
+          {cart.map((curElm) => 
+            <div className='cart-box' key={curElm.id}>
+              <div className='cart_img_box'>
+                <img src={curElm.image} alt='' className='cart_img'></img>
+              </div>
+              <div className='detail-cart'>
+                <div className='info-cart'>
+                  <h4>{curElm.Name}</h4>
+                  <p>{curElm.des}</p>
+                  <p>Price: ${curElm.price}</p>
+                  <p>Total: ${curElm.price * curElm.qty}</p>
                 </div>
-                </>
-              )
-            })
-          }
-        </div>
-        <div className='bottom'>
-          {
-            cart.length > 0 && 
-            <>
-            <div className='Total'>
-              <h4>Sub Total: ${total}</h4>
+                <div className='quantity'>
+                  <button onClick={() => incQty(curElm)} className='btn-1'>+</button>
+                  <input type='number' value={curElm.qty} className='btn-2' readOnly></input>
+                  <button onClick={() => decQty(curElm)} className='btn-3'>-</button>
+                </div>
+                <div className='remove-btn-container'>
+                  <li onClick={() => removeProduct(curElm)}>DELETE</li>
+                </div>
+              </div>
             </div>
-            <button  onClick={handlepayment}>checkout</button>
+          )}
+        </div>
+        <div className='bottom-cart'>
+          {cart.length > 0 && 
+            <>
+              <div className='Total'>
+                <h4>Sub Total: ${total}</h4>
+              </div>
+              <button onClick={handlePayment} className='checkout-btn'>Checkout</button>
             </>
           }
         </div>
-    </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default Cart;

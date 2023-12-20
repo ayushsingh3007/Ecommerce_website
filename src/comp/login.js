@@ -26,6 +26,7 @@ const Login = () => {
 
       if (msg === 'User login successfully') {
         localStorage.setItem('token', token);
+      
         nav('/shop');
         alert(msg);
       } else {

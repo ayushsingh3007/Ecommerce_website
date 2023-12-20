@@ -74,8 +74,8 @@ const Nav = ({ search, setSearch, searchproduct,setCart }) => {
             <AiOutlineDown className='mobile-dropdown-icon' />
             {!isDropdownOpen && (
               <div className='dropdown-content'>
-                {!isLoggedIn && <button onClick={handleRegister}>Register</button>}
-                {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
+                {isLoggedIn && <button onClick={handleRegister}>Register</button>}
+                {!isLoggedIn && <button onClick={handleLogout}>Logout</button>}
               </div>
             )}
           </div>

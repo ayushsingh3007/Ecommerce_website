@@ -38,9 +38,7 @@ const Cart = ({ cart, setCart }) => {
         console.error("Error during checkout:", result.error);
         alert('Payment failed or was not completed. Please try again.');
       } else {
-      
         setCart([]);
-    
         localStorage.removeItem('cart');
         // Redirect to home page
         navigate('/');
@@ -62,11 +60,16 @@ const Cart = ({ cart, setCart }) => {
 
   // Decrease Quantity of cart product
   const decQty = (product) => {
-    setCart(cart.map((curElm) => 
+    const updatedCart = cart.map((curElm) => 
       curElm.id === product.id ? { ...curElm, qty: curElm.qty - 1 } : curElm
-    ));
+    );
+
+    // Filter out items with quantity zero
+    const filteredCart = updatedCart.filter((curElm) => curElm.qty > 0);
+
+    setCart(filteredCart);
     // Save the updated cart data in localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(filteredCart));
   };
 
   // Removing cart product

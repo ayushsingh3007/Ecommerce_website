@@ -82,7 +82,12 @@ const App = () => {
           alert('This product is already added to the cart');
         } else {
           // If not in the cart, update the cart state
-          setCart([...cart, { ...product, qty: 1 }]);
+          const updatedCart = [...cart, { ...product, qty: 1 }];
+          setCart(updatedCart);
+        
+          // Save the updated cart data in localStorage
+          localStorage.setItem('cart', JSON.stringify(updatedCart));
+          
           alert('Added to cart');
         }
       })
@@ -95,7 +100,7 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Nav search={search} setSearch={setSearch} searchproduct={searchproduct} />
+        <Nav search={search} setSearch={setSearch} searchproduct={searchproduct} setCart={setCart} />
         <Rout setCart={setCart} cart={cart} shop={shop} Filter={Filter} allcatefilter={allcatefilter} addtocart={addtocart} />
         <Footer />
       </BrowserRouter>

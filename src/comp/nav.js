@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MdLocalShipping } from 'react-icons/md';
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineDown } from 'react-icons/ai';
@@ -6,9 +5,9 @@ import { CiUser } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import '../comp/nav.css';
 
-const Nav = ({ search, setSearch, searchproduct }) => {
+const Nav = ({ search, setSearch, searchproduct,setCart }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const nav = useNavigate();
 
   const toggleMenu = () => {
@@ -24,11 +23,12 @@ const Nav = ({ search, setSearch, searchproduct }) => {
     closeMenu();
   };
 
- 
   const handleLogout = async () => {
     const token = localStorage.getItem('token');
     if (token) {
       localStorage.clear('token');
+      setCart([])
+      localStorage.removeItem('cart')
       alert('Logout successfully');
     } else {
       console.log('Invalid token');
@@ -38,8 +38,9 @@ const Nav = ({ search, setSearch, searchproduct }) => {
 
   const closeMenu = () => {
     setIsOpen(false);
-    setIsDropdownOpen(false);
+    setIsDropdownOpen(true);
   };
+
   const isLoggedIn = !!localStorage.getItem('token');
 
   return (
@@ -63,20 +64,17 @@ const Nav = ({ search, setSearch, searchproduct }) => {
               value={search}
               placeholder='search'
               onChange={(e) => setSearch(e.target.value)}
-            className='input'></input>
+              className='input'></input>
             <button onClick={searchproduct}><AiOutlineSearch /></button>
           </div>
 
-          
           <AiOutlineMenu className='menu-icon' onClick={toggleMenu} />
 
-        
           <div className='user' onClick={toggleDropdown}>
             <AiOutlineDown className='mobile-dropdown-icon' />
-            {isDropdownOpen && (
+            {!isDropdownOpen && (
               <div className='dropdown-content'>
-                <button onClick={handleRegister}>Register</button>
-                
+                {!isLoggedIn && <button onClick={handleRegister}>Register</button>}
                 {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
               </div>
             )}

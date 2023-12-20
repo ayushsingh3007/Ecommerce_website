@@ -1,3 +1,5 @@
+// components/Home.js
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AiFillEye, AiFillHeart, AiOutlineShoppingCart } from 'react-icons/ai';
@@ -5,7 +7,7 @@ import { BiLogoFacebook, BiLogoTwitter, BiLogoInstagram, BiLogoYoutube } from 'r
 
 import '../comp/home.css';
 
-const Home = ({addtocart}) => {
+const Home = ({ addtocart }) => {
   const [newProduct, setNewProduct] = useState([]);
   const [featuredProduct, setFeaturdProduct] = useState([]);
   const [topProduct, setTopProduct] = useState([]);
@@ -24,11 +26,9 @@ const Home = ({addtocart}) => {
 
     setTrendingProduct(data);
   }, [data]);
-    
 
-  
   useEffect(() => {
-    const token =localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     fetch('https://ecoomerce-backend.onrender.com/api/user/store', {
       headers: { "authorization": `Bearer ${token}` }
     })
@@ -51,61 +51,54 @@ const Home = ({addtocart}) => {
     setTrendingProduct(data);
   };
 
-  
   return (
     <>
-      
       <div className='home'>
-      <div className='top_banner'>
-            <div className='contant'>
-                <h3>silver aluminum</h3>
-                <h2>Apple Watch</h2>
-                <p>30% off at your first odder</p>
-                <Link to='/shop' className='link'>Shop Now</Link>
-            </div>
+        <div className='top_banner'>
+          <div className='contant'>
+            <h3>silver aluminum</h3>
+            <h2>Apple Watch</h2>
+            <p>30% off at your first odder</p>
+            <Link to='/shop' className='link'>Shop Now</Link>
+          </div>
         </div>
         <div className='trending'>
           <div className='container'>
             <div className='left_box'>
               <div className='header'>
                 <div className='heading'>
-                  <h2 onClick={() => allTrendingProduct ()}>trending product</h2>
+                  <h2 onClick={() => allTrendingProduct()}>trending product</h2>
                 </div>
                 <div className='cate'>
-                  <h3 onClick={() => filtercate ('new')}>New</h3>
-                  <h3 onClick={() => filtercate ('featured')}>Featured</h3>
-                  <h3 onClick={() => filtercate ('top')}>top selling</h3>
+                  <h3 onClick={() => filtercate('new')}>New</h3>
+                  <h3 onClick={() => filtercate('featured')}>Featured</h3>
+                  <h3 onClick={() => filtercate('top')}>top selling</h3>
                 </div>
               </div>
               <div className='products'>
                 <div className='container'>
-                  {
-                    trendingProduct.map((curElm) => 
-                    {
-                      return(
-                        <>
-                        <div className='box'  key={curElm.id} >
-                          <div className='img_box'>
-                            <img src={curElm.image} alt=''></img>
-                            <div className='icon'>
-                              <div className='icon_box'>
-                                <AiFillEye />
-                              </div>    
-                              <div className='icon_box'>
-                                <AiFillHeart />
-                              </div>                        
+                  {trendingProduct.map((curElm) => {
+                    return (
+                      <div className='box' key={curElm.id} >
+                        <div className='img_box'>
+                          <img src={curElm.image} alt='' />
+                          <div className='icon'>
+                            <div className='icon_box'>
+                              <AiFillEye />
+                            </div>
+                            <div className='icon_box'>
+                              <AiFillHeart />
                             </div>
                           </div>
-                          <div className='info'>
-                            <h3>{curElm.Name}</h3>
-                            <p>${curElm.price}</p>
-                            <button className='btn' onClick={() => addtocart (curElm)}>Add to cart</button>
-                          </div>
                         </div>
-                        </>
-                      )
-                    })
-                  }
+                        <div className='info'>
+                          <h3>{curElm.Name}</h3>
+                          <p>${curElm.price}</p>
+                          <button className='btn' onClick={() => addtocart(curElm)}>Add to cart</button>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
                 <button id='show-more'>Show More</button>
               </div>
@@ -114,11 +107,11 @@ const Home = ({addtocart}) => {
               <div className='right_container'>
                 <div className='testimonial'>
                   <div className='head'>
-                    <h3>our testmonial</h3>
+                    <h3>our testimonial</h3>
                   </div>
                   <div className='detail'>
                     <div className='img_box'>
-                      <img src='image/T1.avif' alt='testmonial'></img>
+                      <img src='image/T1.avif' alt='testmonial' />
                     </div>
                     <div className='info'>
                       <h3>stephan robot</h3>
@@ -132,8 +125,8 @@ const Home = ({addtocart}) => {
                     <h3>newsletter</h3>
                   </div>
                   <div className='form'>
-                    <p>join our malling list</p>
-                    <input type='email' placeholder='E-mail' autoComplete='off'></input>
+                    <p>join our mailing list</p>
+                    <input type='email' placeholder='E-mail' autoComplete='off' />
                     <button>subscribe</button>
                     <div className='icon_box'>
                       <div className='icon'>
@@ -159,19 +152,19 @@ const Home = ({addtocart}) => {
           <div className='container'>
             <div className='left_box'>
               <div className='box'>
-                <img src='image/Multi-Banner-1.avif' alt='banner'></img>
+                <img src='image/Multi-Banner-1.avif' alt='banner' />
               </div>
               <div className='box'>
-                <img src='image/Multi-Banner-2.avif' alt='banner'></img>
+                <img src='image/Multi-Banner-2.avif' alt='banner' />
               </div>
             </div>
             <div className='right_box'>
               <div className='top'>
-                <img src='image/Multi-Banner-3.webp' alt=''></img>
-                <img src='image/Multi-Banner-4.avif' alt=''></img>
+                <img src='image/Multi-Banner-3.webp' alt='' />
+                <img src='image/Multi-Banner-4.avif' alt='' />
               </div>
               <div className='bottom'>
-                <img src='image/Multi-Banner-5.webp' alt=''></img>
+                <img src='image/Multi-Banner-5.webp' alt='' />
               </div>
             </div>
           </div>
@@ -182,85 +175,70 @@ const Home = ({addtocart}) => {
               <div className='header'>
                 <h2>New Product</h2>
               </div>
-              {
-                newProduct.map((curElm) => 
-                {
-                  return(
-                    <>
-                    <div className='productbox'  key={curElm.id} >
-                      <div className='img-box'>
-                        <img src={curElm.image} alt=''></img>
-                      </div>
-                      <div className='detail'>
-                        <h3>{curElm.Name}</h3>
-                        <p>$ {curElm.price}</p>
-                        <div className='icon'>
-                          <button><AiFillEye /></button>
-                          <button><AiFillHeart /></button>
-                          <button onClick={() => addtocart (curElm)}><AiOutlineShoppingCart /></button>
-                        </div>
+              {newProduct.map((curElm) => {
+                return (
+                  <div className='productbox' key={curElm.id}>
+                    <div className='img-box'>
+                      <img src={curElm.image} alt='' />
+                    </div>
+                    <div className='detail'>
+                      <h3>{curElm.Name}</h3>
+                      <p>$ {curElm.price}</p>
+                      <div className='icon'>
+                        <button><AiFillEye /></button>
+                        <button><AiFillHeart /></button>
+                        <button onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></button>
                       </div>
                     </div>
-                    </>
-                  )
-                })
-              }
+                  </div>
+                );
+              })}
             </div>
             <div className='box'>
               <div className='header'>
                 <h2>Featured Product</h2>
               </div>
-              {
-                featuredProduct.map((curElm) => 
-                {
-                  return(
-                    <>
-                    <div className='productbox'  key={curElm.id} >
-                      <div className='img-box'>
-                        <img src={curElm.image} alt=''></img>
-                      </div>
-                      <div className='detail'>
-                        <h3>{curElm.Name}</h3>
-                        <p>$ {curElm.price}</p>
-                        <div className='icon'>
-                          <button><AiFillEye /></button>
-                          <button><AiFillHeart /></button>
-                          <button onClick={() => addtocart (curElm)}><AiOutlineShoppingCart /></button>
-                        </div>
+              {featuredProduct.map((curElm) => {
+                return (
+                  <div className='productbox' key={curElm.id}>
+                    <div className='img-box'>
+                      <img src={curElm.image} alt='' />
+                    </div>
+                    <div className='detail'>
+                      <h3>{curElm.Name}</h3>
+                      <p>$ {curElm.price}</p>
+                      <div className='icon'>
+                        <button><AiFillEye /></button>
+                        <button><AiFillHeart /></button>
+                        <button onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></button>
                       </div>
                     </div>
-                    </>
-                  )
-                })
-              }
+                  </div>
+                );
+              })}
             </div>
             <div className='box'>
               <div className='header'>
-                <h2>Top Product</h2>
+                <h2>Top Selling Product</h2>
               </div>
-              {
-                topProduct.map((curElm) => 
-                {
-                  return(
-                    <>
-                    <div className='productbox'  key={curElm.id} >
-                      <div className='img-box'>
-                        <img src={curElm.image} alt=''></img>
-                      </div>
-                      <div className='detail'>
-                        <h3>{curElm.Name}</h3>
-                        <p>$ {curElm.price}</p>
-                        <div className='icon'>
-                          <button><AiFillEye /></button>
-                          <button><AiFillHeart /></button>
-                          <button onClick={() => addtocart (curElm)}><AiOutlineShoppingCart /></button>
-                        </div>
+              {topProduct.map((curElm) => {
+                return (
+                  <div className='productbox' key={curElm.id}>
+                    <div className='img-box'>
+                      <img src={curElm.image} alt='' />
+                    </div>
+                    <div className='detail'>
+                      <h3>{curElm.Name}</h3>
+                      <p>$ {curElm.price}</p>
+                      <div className='icon'>
+                        <button><AiFillEye /></button>
+                        <button><AiFillHeart /></button>
+                        <button onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></button>
                       </div>
                     </div>
-                    </>
-                  )
-                })
-              }
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

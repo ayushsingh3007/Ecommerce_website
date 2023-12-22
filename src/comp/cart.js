@@ -5,16 +5,47 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const Cart = ({ cart, setCart }) => {
   const navigate = useNavigate();
+  let paymentSuccessful = false;
 
   useEffect(() => {
-    // Check if there is any cart data in local storage
+    // Uncomment the following lines to initialize the cart from localStorage
+    console.log('Cart component mounted');
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(storedCart);
   }, [setCart]);
 
+  const removeProduct = (product) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.filter((curElm) => curElm.id !== product.id);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
+  const incQty = (product) => {
+    setCart((prevCart) =>
+      prevCart.map((curElm) =>
+        curElm.id === product.id ? { ...curElm, qty: curElm.qty + 1 } : curElm
+      )
+    );
+  };
+
+  const decQty = (product) => {
+    const updatedCart = cart.map((curElm) =>
+      curElm.id === product.id ? { ...curElm, qty: curElm.qty - 1 } : curElm
+    );
+    const filteredCart = updatedCart.filter((curElm) => curElm.qty > 0);
+    setCart(filteredCart);
+    localStorage.setItem('cart', JSON.stringify(filteredCart));
+  };
+
+  const total = cart.reduce((price, item) => price + item.qty * item.price, 0);
+
   const handlePayment = async () => {
     try {
-      const stripe = await loadStripe("pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA");
+      const stripe = await loadStripe(
+        "pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA"
+      );
 
       const body = {
         products: cart
@@ -36,12 +67,9 @@ const Cart = ({ cart, setCart }) => {
 
       if (result.error) {
         console.error("Error during checkout:", result.error);
-        alert('Payment failed or was not completed. Please try again.');
+        alert('Error during checkout. Please try again.');
       } else {
-        setCart([]);
-        localStorage.removeItem('cart');
-        // Redirect to home page
-        navigate('/');
+        paymentSuccessful = true;
       }
     } catch (error) {
       console.error("Error during checkout:", error);
@@ -49,40 +77,13 @@ const Cart = ({ cart, setCart }) => {
     }
   };
 
-  // Increase Quantity of cart product
-  const incQty = (product) => {
-    setCart(cart.map((curElm) => 
-      curElm.id === product.id ? { ...curElm, qty: curElm.qty + 1 } : curElm
-    ));
-    // Save the updated cart data in localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-  };
-
-  // Decrease Quantity of cart product
-  const decQty = (product) => {
-    const updatedCart = cart.map((curElm) => 
-      curElm.id === product.id ? { ...curElm, qty: curElm.qty - 1 } : curElm
-    );
-
-    // Filter out items with quantity zero
-    const filteredCart = updatedCart.filter((curElm) => curElm.qty > 0);
-
-    setCart(filteredCart);
-    // Save the updated cart data in localStorage
-    localStorage.setItem('cart', JSON.stringify(filteredCart));
-  };
-
-  // Removing cart product
-  const removeProduct = (product) => {
-    setCart(cart.filter((curElm) => 
-      curElm.id !== product.id
-    ));
-    // Save the updated cart data in localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-  };
-
-  // Total Price
-  const total = cart.reduce((price, item) => price + item.qty * item.price, 0);
+  useEffect(() => {
+    if (paymentSuccessful) {
+      setCart([]);
+      localStorage.removeItem('cart');
+      navigate('/cart');
+    }
+  }, [paymentSuccessful, setCart, navigate]);
 
   return (
     <>

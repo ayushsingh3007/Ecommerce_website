@@ -65,7 +65,7 @@ const Cart = ({ cart, setCart }) => {
 
       const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
-      if(result){
+      if(result==="true"){
         setCart([])
         localStorage.clear('cart')
       }

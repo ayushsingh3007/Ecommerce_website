@@ -5,10 +5,10 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const Cart = ({ cart, setCart }) => {
   const navigate = useNavigate();
-  let paymentSuccessful = false;
+  
 
   useEffect(() => {
-    // Uncomment the following lines to initialize the cart from localStorage
+  
     console.log('Cart component mounted');
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(storedCart);
@@ -69,7 +69,9 @@ const Cart = ({ cart, setCart }) => {
         console.error("Error during checkout:", result.error);
         alert('Error during checkout. Please try again.');
       } else {
-        paymentSuccessful = true;
+          setCart([]) 
+        localStorage.clear('cart')
+      
       }
     } catch (error) {
       console.error("Error during checkout:", error);
@@ -77,13 +79,7 @@ const Cart = ({ cart, setCart }) => {
     }
   };
 
-  useEffect(() => {
-    if (paymentSuccessful) {
-      setCart([]);
-      localStorage.removeItem('cart');
-      navigate('/cart');
-    }
-  }, [paymentSuccessful, setCart, navigate]);
+ 
 
   return (
     <>

@@ -65,13 +65,9 @@ const Cart = ({ cart, setCart }) => {
 
       const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
-      if (result.error) {
-        console.error("Error during checkout:", result.error);
-        alert('Error during checkout. Please try again.');
-      } else {
-          setCart([]) 
+      if(result){
+        setCart([])
         localStorage.clear('cart')
-      
       }
     } catch (error) {
       console.error("Error during checkout:", error);

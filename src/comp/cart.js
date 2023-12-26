@@ -63,7 +63,7 @@ const Cart = ({ cart, setCart }) => {
 
       const session = await response.json();
 
-      const result = await stripe.redirectToCheckout({ sessionId: session.id });
+      const result =  stripe.redirectToCheckout({ sessionId: session.id });
 
       if(result==="true"){
         setCart([])

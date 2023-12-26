@@ -65,9 +65,16 @@ const Cart = ({ cart, setCart }) => {
 
       const result =  stripe.redirectToCheckout({ sessionId: session.id });
 
-      if(result==="true"){
+      if (result.error) {
+        // Handle payment failure
+        console.log("Payment failed:", result.error);
+        alert('Payment failed. Please try again.');
+      } else {
+        // Payment successful
         setCart([])
-        localStorage.clear('cart')
+        localStorage.removeItem('cart');
+        
+        navigate('/success');
       }
     } catch (error) {
       console.error("Error during checkout:", error);

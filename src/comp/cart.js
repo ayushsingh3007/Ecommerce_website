@@ -1,88 +1,70 @@
-import React, { useEffect } from 'react';
-import '../comp/cart.css';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, clearCart, decreaseCart, removeFromCart, selectCartItems } from './Redux/cartSlice';
 
-const Cart = ({ cart, setCart }) => {
+const Cart = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
-  useEffect(() => {
-  
-    console.log('Cart component mounted');
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCart(storedCart);
-  }, [setCart]);
-
+  const cart = useSelector(selectCartItems);
+  console.log(cart)
   const removeProduct = (product) => {
-    setCart((prevCart) => {
-      const updatedCart = prevCart.filter((curElm) => curElm.id !== product.id);
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      return updatedCart;
-    });
+    dispatch(removeFromCart(product.id));
   };
 
   const incQty = (product) => {
-    setCart((prevCart) =>
-      prevCart.map((curElm) =>
-        curElm.id === product.id ? { ...curElm, qty: curElm.qty + 1 } : curElm
-      )
-    );
+    dispatch(addItem(product));
   };
 
   const decQty = (product) => {
-    const updatedCart = cart.map((curElm) =>
-      curElm.id === product.id ? { ...curElm, qty: curElm.qty - 1 } : curElm
-    );
-    const filteredCart = updatedCart.filter((curElm) => curElm.qty > 0);
-    setCart(filteredCart);
-    localStorage.setItem('cart', JSON.stringify(filteredCart));
+    if (product.qty > 1) {
+      dispatch(decreaseCart({ id: product.id, qty: product.qty - 1 }));
+    } else {
+      dispatch(removeFromCart(product.id));
+    }
   };
 
   const total = cart.reduce((price, item) => price + item.qty * item.price, 0);
-
   const handlePayment = async () => {
     try {
-      const stripe = await loadStripe(
-        "pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA"
-      );
-
+      console.log("Handling payment...");
+      const stripe = await loadStripe("pk_test_51OK7daSAg3lXy8qLxeoU47nqdQPoOu3wgESHAWMNtzIhR5eGPIhfLm5gIfepNIml80BTlqHbv4VUEcQmPGd2zv5G00rzNSVTkA");
       const body = {
         products: cart
       };
-
+  
       const headers = {
         "Content-Type": "application/json",
       };
-
-      const response = await fetch("https://ecoomerce-backend.onrender.com/api/user/create-checkout-session", {
+  
+      const response = await fetch("http://localhost:5000/api/user/create-checkout-session", {
         method: "POST",
         headers: headers,
         body: JSON.stringify(body)
       });
-
+  
       const session = await response.json();
-
       const result =  stripe.redirectToCheckout({ sessionId: session.id });
-
+  
       if (result.error) {
-        // Handle payment failure
         console.log("Payment failed:", result.error);
         alert('Payment failed. Please try again.');
       } else {
-        // Payment successful
-        setCart([])
-        localStorage.removeItem('cart');
-        
-        navigate('/success');
+        // Payment was successful, clear the cart
+        dispatch(clearCart());
+        navigate('/');
       }
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert('Login first');
+      alert('An error occurred during checkout. Please try again.');
     }
   };
 
- 
+
+
+
 
   return (
     <>
@@ -91,7 +73,8 @@ const Cart = ({ cart, setCart }) => {
         {cart.length === 0 && 
           <>
             <div className='empty_cart'>
-              <h2>Your Shopping cart is empty</h2>
+              <h1>Cart is Empty</h1>
+              <img src='https://i.pinimg.com/originals/ff/7b/28/ff7b2828a8bb02cdddd521e243fdeac7.gif' alt='not-found' width="100%" />
               <Link to='/shop'><button>Shop Now</button></Link>
             </div>
           </>

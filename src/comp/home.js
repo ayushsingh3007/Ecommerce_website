@@ -1,31 +1,21 @@
-// components/Home.js
-
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../comp/home.css'
 import { AiFillEye, AiFillHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiLogoFacebook, BiLogoTwitter, BiLogoInstagram, BiLogoYoutube } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from './Redux/cartSlice';
+import {  selectShopData, setShopData } from './Redux/shopSlice';
+import "../comp/cart.css"
+const Home = () => {
+  const dispatch = useDispatch();
+  const shopData = useSelector(selectShopData); // Initialize as an empty array if undefined
 
-import '../comp/home.css';
-
-const Home = ({ addtocart }) => {
   const [newProduct, setNewProduct] = useState([]);
-  const [featuredProduct, setFeaturdProduct] = useState([]);
+  const [featuredProduct, setFeaturedProduct] = useState([]);
   const [topProduct, setTopProduct] = useState([]);
-  const [data, setData] = useState([]);
   const [trendingProduct, setTrendingProduct] = useState([]);
 
-  const productcategory = useCallback(() => {
-    const newcategory = data.filter((x) => x.type === 'new');
-    setNewProduct(newcategory);
-
-    const featuredcategory = data.filter((x) => x.type === 'featured');
-    setFeaturdProduct(featuredcategory);
-
-    const topcategory = data.filter((x) => x.type === 'top');
-    setTopProduct(topcategory);
-
-    setTrendingProduct(data);
-  }, [data]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -34,21 +24,52 @@ const Home = ({ addtocart }) => {
     })
       .then((response) => response.json())
       .then((fetchedData) => {
-        setData(fetchedData);
-        productcategory();
+        dispatch(setShopData(fetchedData));
       })
       .catch((error) => console.log('Error fetching shop data:', error));
-  }, [productcategory]);
+  }, [dispatch]);
+  
+ 
+ 
 
-  const filtercate = (x) => {
-    const filterproduct = data.filter((curElm) => {
-      return curElm.type === x;
-    });
-    setTrendingProduct(filterproduct);
+  useEffect(() => {
+    if (!shopData || !shopData.length) {
+      // Data not available yet, handle accordingly (e.g., show loading state).
+      return;
+    }
+    const newCategory = shopData.filter((x) => x.type === 'new');
+    setNewProduct(newCategory);
+
+    const featuredCategory = shopData.filter((x) => x.type === 'featured');
+    setFeaturedProduct(featuredCategory);
+
+    const topCategory = shopData.filter((x) => x.type === 'top');
+    setTopProduct(topCategory);
+
+    setTrendingProduct(shopData);
+  }, [shopData]);
+
+  const filterCategory = (x) => {
+    const filterProduct = shopData.filter((curElm) => curElm.type === x);
+    setTrendingProduct(filterProduct);
   };
 
   const allTrendingProduct = () => {
-    setTrendingProduct(data);
+    setTrendingProduct(shopData);
+  };
+
+  const addtoCart = (product) => {
+    let token =localStorage.getItem('token')
+    if(!token){
+  
+      alert('try to login first')
+    }
+    else{
+    
+      dispatch(addItem(product));
+      alert('added to cart')
+    }
+    
   };
 
   return (
@@ -58,8 +79,10 @@ const Home = ({ addtocart }) => {
           <div className='contant'>
             <h3>silver aluminum</h3>
             <h2>Apple Watch</h2>
-            <p>30% off at your first odder</p>
-            <Link to='/shop' className='link'>Shop Now</Link>
+            <p>30% off at your first order</p>
+            <Link to='/shop' className='link'>
+              Shop Now
+            </Link>
           </div>
         </div>
         <div className='trending'>
@@ -70,35 +93,35 @@ const Home = ({ addtocart }) => {
                   <h2 onClick={() => allTrendingProduct()}>trending product</h2>
                 </div>
                 <div className='cate'>
-                  <h3 onClick={() => filtercate('new')}>New</h3>
-                  <h3 onClick={() => filtercate('featured')}>Featured</h3>
-                  <h3 onClick={() => filtercate('top')}>top selling</h3>
+                  <h3 onClick={() => filterCategory('new')}>New</h3>
+                  <h3 onClick={() => filterCategory('featured')}>Featured</h3>
+                  <h3 onClick={() => filterCategory('top')}>top selling</h3>
                 </div>
               </div>
               <div className='products'>
                 <div className='container'>
-                  {trendingProduct.map((curElm) => {
-                    return (
-                      <div className='box' key={curElm.id} >
-                        <div className='img_box'>
-                          <img src={curElm.image} alt='' />
-                          <div className='icon'>
-                            <div className='icon_box'>
-                              <AiFillEye />
-                            </div>
-                            <div className='icon_box'>
-                              <AiFillHeart />
-                            </div>
+                  {trendingProduct.map((curElm) => (
+                    <div className='box' key={curElm.id}>
+                      <div className='img_box'>
+                        <img src={curElm.image} alt='' />
+                        <div className='icon'>
+                          <div className='icon_box'>
+                            <AiFillEye />
+                          </div>
+                          <div className='icon_box'>
+                            <AiFillHeart />
                           </div>
                         </div>
-                        <div className='info'>
-                          <h3>{curElm.Name}</h3>
-                          <p>${curElm.price}</p>
-                          <button className='btn' onClick={() => addtocart(curElm)}>Add to cart</button>
-                        </div>
                       </div>
-                    );
-                  })}
+                      <div className='info'>
+                        <h3>{curElm.Name}</h3>
+                        <p>${curElm.price}</p>
+                        <button className='btn' onClick={() => addtoCart(curElm)}>
+                          Add to cart
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 <button id='show-more'>Show More</button>
               </div>
@@ -159,12 +182,8 @@ const Home = ({ addtocart }) => {
               </div>
             </div>
             <div className='right_box'>
-              <div className='top'>
+              <div className='box'>
                 <img src='image/Multi-Banner-3.webp' alt='' />
-                <img src='image/Multi-Banner-4.avif' alt='' />
-              </div>
-              <div className='bottom'>
-                <img src='image/Multi-Banner-5.webp' alt='' />
               </div>
             </div>
           </div>
@@ -175,70 +194,82 @@ const Home = ({ addtocart }) => {
               <div className='header'>
                 <h2>New Product</h2>
               </div>
-              {newProduct.map((curElm) => {
-                return (
-                  <div className='productbox' key={curElm.id}>
-                    <div className='img-box'>
-                      <img src={curElm.image} alt='' />
-                    </div>
-                    <div className='detail'>
-                      <h3>{curElm.Name}</h3>
-                      <p>$ {curElm.price}</p>
-                      <div className='icon'>
-                        <button><AiFillEye /></button>
-                        <button><AiFillHeart /></button>
-                        <button onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></button>
-                      </div>
+              {newProduct.map((curElm) => (
+                <div className='productbox' key={curElm.id}>
+                  <div className='img-box'>
+                    <img src={curElm.image} alt='' />
+                  </div>
+                  <div className='detail'>
+                    <h3>{curElm.Name}</h3>
+                    <p>${curElm.price}</p>
+                    <div className='icon'>
+                      <button>
+                        <AiFillEye />
+                      </button>
+                      <button>
+                        <AiFillHeart />
+                      </button>
+                      <button onClick={() => addtoCart(curElm)}>
+                        <AiOutlineShoppingCart />
+                      </button>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
             <div className='box'>
               <div className='header'>
                 <h2>Featured Product</h2>
               </div>
-              {featuredProduct.map((curElm) => {
-                return (
-                  <div className='productbox' key={curElm.id}>
-                    <div className='img-box'>
-                      <img src={curElm.image} alt='' />
-                    </div>
-                    <div className='detail'>
-                      <h3>{curElm.Name}</h3>
-                      <p>$ {curElm.price}</p>
-                      <div className='icon'>
-                        <button><AiFillEye /></button>
-                        <button><AiFillHeart /></button>
-                        <button onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></button>
-                      </div>
+              {featuredProduct.map((curElm) => (
+                <div className='productbox' key={curElm.id}>
+                  <div className='img-box'>
+                    <img src={curElm.image} alt='' />
+                  </div>
+                  <div className='detail'>
+                    <h3>{curElm.Name}</h3>
+                    <p>${curElm.price}</p>
+                    <div className='icon'>
+                      <button>
+                        <AiFillEye />
+                      </button>
+                      <button>
+                        <AiFillHeart />
+                      </button>
+                      <button onClick={() => addtoCart(curElm)}>
+                        <AiOutlineShoppingCart />
+                      </button>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
             <div className='box'>
               <div className='header'>
                 <h2>Top Selling Product</h2>
               </div>
-              {topProduct.map((curElm) => {
-                return (
-                  <div className='productbox' key={curElm.id}>
-                    <div className='img-box'>
-                      <img src={curElm.image} alt='' />
-                    </div>
-                    <div className='detail'>
-                      <h3>{curElm.Name}</h3>
-                      <p>$ {curElm.price}</p>
-                      <div className='icon'>
-                        <button><AiFillEye /></button>
-                        <button><AiFillHeart /></button>
-                        <button onClick={() => addtocart(curElm)}><AiOutlineShoppingCart /></button>
-                      </div>
+              {topProduct.map((curElm) => (
+                <div className='productbox' key={curElm.id}>
+                  <div className='img-box'>
+                    <img src={curElm.image} alt='' />
+                  </div>
+                  <div className='detail'>
+                    <h3>{curElm.Name}</h3>
+                    <p>${curElm.price}</p>
+                    <div className='icon'>
+                      <button>
+                        <AiFillEye />
+                      </button>
+                      <button>
+                        <AiFillHeart />
+                      </button>
+                      <button onClick={() => addtoCart(curElm)}>
+                        <AiOutlineShoppingCart />
+                      </button>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </div>

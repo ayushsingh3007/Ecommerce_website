@@ -1,14 +1,19 @@
+// components/Nav.js
 import React, { useState } from 'react';
 import { MdLocalShipping } from 'react-icons/md';
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineDown } from 'react-icons/ai';
 import { CiUser } from 'react-icons/ci';
 import { Link, useNavigate } from 'react-router-dom';
 import '../comp/nav.css';
+import { useDispatch } from 'react-redux';
+import { clearCart} from './Redux/cartSlice';
 
-const Nav = ({ search, setSearch, searchproduct,setCart }) => {
+const Nav = () => {
+  const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const nav = useNavigate();
+  const dispatch=useDispatch()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -26,9 +31,8 @@ const Nav = ({ search, setSearch, searchproduct,setCart }) => {
   const handleLogout = async () => {
     const token = localStorage.getItem('token');
     if (token) {
+      dispatch(clearCart())
       localStorage.clear('token');
-      setCart([])
-      localStorage.removeItem('cart')
       alert('Logout successfully');
     } else {
       console.log('Invalid token');
@@ -65,7 +69,7 @@ const Nav = ({ search, setSearch, searchproduct,setCart }) => {
               placeholder='search'
               onChange={(e) => setSearch(e.target.value)}
               className='input'></input>
-            <button onClick={searchproduct}><AiOutlineSearch /></button>
+            <button><AiOutlineSearch /></button>
           </div>
 
           <AiOutlineMenu className='menu-icon' onClick={toggleMenu} />

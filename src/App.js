@@ -17,7 +17,7 @@ const App = () => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:5000/api/user/store', {
+        const response = await axios.get('https://ecoomerce-backend.onrender.com/api/user/store', {
           headers: { "authorization": `Bearer ${token}` }
         });
         const data = response.data;

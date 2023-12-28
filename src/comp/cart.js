@@ -11,7 +11,7 @@ const Cart = () => {
   const cart = useSelector(selectCartItems);
   console.log(cart)
   const removeProduct = (product) => {
-    dispatch(removeFromCart(product.id));
+    dispatch(removeFromCart({ id: product.id }));
   };
 
   const incQty = (product) => {
@@ -22,8 +22,9 @@ const Cart = () => {
     if (product.qty > 1) {
       dispatch(decreaseCart({ id: product.id, qty: product.qty - 1 }));
     } else {
-      dispatch(removeFromCart(product.id));
-    }
+  
+        dispatch(removeFromCart({ id: product.id }));
+          }
   };
 
   const total = cart.reduce((price, item) => price + item.qty * item.price, 0);

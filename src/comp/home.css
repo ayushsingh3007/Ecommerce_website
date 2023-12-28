@@ -117,6 +117,7 @@ body{
 .home .trending .container .left_box .products
 {
     max-width: 100%;
+
 }
 .home .trending .container .left_box .products .container
 {
@@ -127,7 +128,7 @@ body{
 .home .trending .container .left_box .products button
 {
     margin-top: 20px;
-    margin-left: 45%;
+    margin-left: 0%;
     padding: 10px 30px;
     background: none;
     outline: none;
@@ -341,7 +342,7 @@ body{
 .home .trending .container .right_box .right_container .newsletter .form button
 {
     margin-top: 10px;
-    margin-left: 60px;
+    margin-left: 0px;
     padding: 10px 30px;
     border: none;
     background: none;
@@ -374,7 +375,7 @@ body{
     background: #cd1e76;
 }
 .home .banners
-{
+{   display: none;
     padding: 20px 30px;
     width: 100%;
 }
